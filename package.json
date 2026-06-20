@@ -14,8 +14,7 @@
     "lint": "oxlint --fix",
     "format": "oxfmt --write",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "wrangler d1 migrations apply DATABASE",
-    "db:seed": "wrangler d1 execute DATABASE --file=seed.sql"
+    "db:migrate": "wrangler d1 migrations apply DATABASE"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
