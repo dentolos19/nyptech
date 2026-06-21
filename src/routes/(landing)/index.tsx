@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { Button } from "#/components/ui/button";
-import ContactSection from "#/routes/(landing)/_components/contact";
-import FeedbackSection from "#/routes/(landing)/_components/feedback";
-import InnovationSection from "#/routes/(landing)/_components/innovation";
-import IntroSection from "#/routes/(landing)/_components/intro";
-import StartupsSection from "#/routes/(landing)/_components/startups";
+import ContactSection from "#/routes/(landing)/-components/contact";
+import FeedbackSection from "#/routes/(landing)/-components/feedback";
+import InnovationSection from "#/routes/(landing)/-components/innovation";
+import IntroSection from "#/routes/(landing)/-components/intro";
+import StartupsSection from "#/routes/(landing)/-components/startups";
 
 export const Route = createFileRoute("/(landing)/")({ component: Home });
 
