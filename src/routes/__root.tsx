@@ -2,6 +2,9 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
+import AppProvider from "#/components/app-provider";
+import { ScrollArea } from "#/components/ui/scroll-area";
+
 import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
@@ -34,8 +37,10 @@ export const Route = createRootRoute({
       <head>
         <HeadContent />
       </head>
-      <body className="antialiased">
-        {children}
+      <body className={"antialiased"}>
+        <AppProvider>
+          <ScrollArea className={"h-dvh w-dvw"}>{children}</ScrollArea>
+        </AppProvider>
         <TanStackDevtools
           config={{
             position: "bottom-right",
