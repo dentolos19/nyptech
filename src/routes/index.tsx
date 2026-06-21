@@ -1059,11 +1059,11 @@ function Home() {
       <main>
         <Hero />
         <TrustBand />
+        <StartupsShowcase />
         <ProgramOverview />
         <Benefits />
         <WhoShouldApply />
         <HowItWorks />
-        <StartupsShowcase />
         <SuccessStories />
         <Faq />
         <FinalCta />
