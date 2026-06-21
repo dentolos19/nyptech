@@ -285,10 +285,72 @@ function SectionShell({
 
 // ── Navbar ─────────────────────────────────────────────────────────────────────
 
-function Navbar() {
+// A nav link that draws a loose hand-drawn ink circle around itself on hover or
+// keyboard focus (and un-draws on leave/blur). Reuses the site's SketchCircle
+// ellipse path, stretched to the link via preserveAspectRatio="none".
+function NavLink({ href, label }: { href: string; label: string }) {
+  const reduced = useReducedMotion();
+  const [active, setActive] = useState(false);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-white/80 backdrop-blur-md">
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+    <span className="relative inline-flex">
+      <a
+        href={href}
+        onMouseEnter={() => setActive(true)}
+        onMouseLeave={() => setActive(false)}
+        onFocus={() => setActive(true)}
+        onBlur={() => setActive(false)}
+        className="relative text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:outline-none"
+      >
+        {label}
+      </a>
+      <svg
+        viewBox="0 0 220 90"
+        preserveAspectRatio="none"
+        fill="none"
+        aria-hidden="true"
+        className="text-brand pointer-events-none absolute -top-2 -bottom-2 -left-3.5 -right-3.5"
+      >
+        <motion.path
+          d="M128 7c-40-6-92-2-112 18-18 18-6 41 30 51 39 11 110 9 150-9 30-14 26-40-8-54-20-8-46-11-70-11"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+          initial={false}
+          animate={{ pathLength: active ? 1 : 0, opacity: active ? 1 : 0 }}
+          transition={{ duration: reduced ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+        />
+      </svg>
+    </span>
+  );
+}
+
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 border-b transition-all duration-300",
+        scrolled
+          ? "border-border/70 bg-white/80 shadow-sm backdrop-blur-md"
+          : "border-transparent bg-transparent",
+      )}
+    >
+      <nav
+        className={cn(
+          "mx-auto flex max-w-6xl items-center justify-between px-6 transition-all duration-300",
+          scrolled ? "h-14" : "h-16",
+        )}
+      >
         <a href="#top" className="flex items-center gap-2.5">
           <img src="/assets/logo.png" alt="" className="size-8 rounded-full" />
           <span className="text-[15px] font-semibold tracking-tight text-foreground">
@@ -296,15 +358,9 @@ function Navbar() {
           </span>
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-7 md:flex">
           {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </a>
+            <NavLink key={link.href} href={link.href} label={link.label} />
           ))}
         </div>
 
