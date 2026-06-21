@@ -9,7 +9,6 @@ export const Route = createFileRoute("/")({ component: Home });
 const STARTUPS = [
   {
     name: "Bihance",
-    batch: "Cohort 1",
     tagline: "Student portfolios, reinvented.",
     logo: "/assets/startups/bihance.png",
     cover: "/assets/placeholder-banner.png",
@@ -19,7 +18,6 @@ const STARTUPS = [
   },
   {
     name: "ProcoLink",
-    batch: "Cohort 2",
     tagline: "Connecting students to real work.",
     logo: "/assets/startups/procolink.png",
     cover: "/assets/showcase/procolink.png",
@@ -29,7 +27,6 @@ const STARTUPS = [
   },
   {
     name: "Pronto",
-    batch: "Cohort 2",
     tagline: "Delivery built for campus life.",
     logo: "/assets/startups/pronto.png",
     cover: "/assets/bee.jpg",
@@ -39,7 +36,6 @@ const STARTUPS = [
   },
   {
     name: "Virage",
-    batch: "Cohort 3",
     tagline: "The future of sustainable mobility.",
     logo: "/assets/startups/virage.png",
     cover: "/assets/showcase/autozone.png",
@@ -378,9 +374,6 @@ function StartupsSection() {
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f]/20 to-transparent" />
-                  <span className="absolute top-3 left-3 rounded-full border border-orange-500/25 bg-orange-500/10 px-2.5 py-1 text-[10px] font-medium tracking-[0.15em] text-orange-400 uppercase">
-                    {startup.batch}
-                  </span>
                 </div>
                 {/* Content */}
                 <div className="flex flex-1 flex-col gap-3 p-5">

@@ -33,8 +33,5 @@ jobs:
       - name: Build Project
         run: bun run build
 
-      # - name: Migrate Database
-      #   run: bun run db:migrate --remote
-
       - name: Deploy to Cloudflare
         run: bun run deploy
