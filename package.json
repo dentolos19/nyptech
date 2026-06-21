@@ -11,8 +11,7 @@
     "build": "vite build",
     "deploy": "wrangler deploy",
     "types": "wrangler types && tsr generate",
-    "lint": "oxlint --fix",
-    "format": "oxfmt --write"
+    "check": "oxfmt --write && oxlint --fix"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
