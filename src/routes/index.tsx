@@ -729,18 +729,19 @@ function PinnedStartups() {
       ]);
       if (cancelled) return;
       gsap.registerPlugin(ScrollTrigger);
+      const maxIdx = STARTUPS.length - 1;
       ctx = gsap.context(() => {
         ScrollTrigger.create({
           trigger: section,
           start: "top top",
-          end: () => "+=" + window.innerHeight * (STARTUPS.length - 1) * 0.9,
+          end: () => "+=" + window.innerHeight * maxIdx * 0.9,
           pin: pin,
           pinSpacing: true,
           anticipatePin: 1,
           scrub: 0.5,
           invalidateOnRefresh: true,
           onUpdate: (self: { progress: number }) => {
-            const idx = Math.round(self.progress * (STARTUPS.length - 1));
+            const idx = Math.round(self.progress * maxIdx);
             setActive((prev) => (prev === idx ? prev : idx));
           },
         });
@@ -758,54 +759,64 @@ function PinnedStartups() {
 
   return (
     <div ref={sectionRef} className="relative">
-      <div ref={pinRef} className="flex min-h-screen flex-col justify-center px-6 py-24">
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-2">
-          {/* Left — text */}
+      <div ref={pinRef} className="flex min-h-screen flex-col justify-center px-6 py-20">
+        <div className="mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-[1fr_1.1fr]">
+          {/* Left — vertical startup list */}
           <div>
-            <div className="text-brand flex items-center gap-3 text-sm font-semibold">
+            <div className="text-brand mb-7 flex items-center gap-3 text-sm font-semibold">
               <span className="font-mono">{pad(active + 1)}</span>
               <span className="bg-brand/30 h-px w-10" />
               <span className="text-muted-foreground font-mono">{pad(STARTUPS.length)}</span>
+              <span className="text-muted-foreground font-sans font-medium tracking-wide uppercase">
+                · {current.category}
+              </span>
+            </div>
+            <ul className="flex flex-col gap-3">
+              {STARTUPS.map((s, i) => (
+                <li key={s.name}>
+                  <span
+                    className={cn(
+                      "block origin-left font-serif tracking-tight transition-all duration-500",
+                      i === active
+                        ? "text-foreground text-4xl font-bold opacity-100 md:text-5xl"
+                        : "text-foreground text-2xl font-medium opacity-30 md:text-3xl",
+                    )}
+                  >
+                    {s.name}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Right — crossfading image + caption */}
+          <div>
+            <div className="relative aspect-[16/11] w-full">
+              <SketchFrame className="absolute -inset-3 h-[calc(100%+1.5rem)] w-[calc(100%+1.5rem)]" />
+              {STARTUPS.map((s, i) => (
+                <motion.img
+                  key={s.name}
+                  src={s.image}
+                  alt={`${s.name} preview`}
+                  initial={false}
+                  animate={{ opacity: i === active ? 1 : 0, scale: i === active ? 1 : 1.03 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="border-border absolute inset-0 h-full w-full rounded-2xl border object-cover shadow-xl"
+                />
+              ))}
             </div>
             <motion.div
               key={active}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-5"
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <StartupText s={current} />
+              <p className="text-muted-foreground mt-8 max-w-md text-base leading-relaxed">
+                {current.blurb}
+              </p>
+              <p className="text-brand mt-3 text-sm font-semibold">{current.metric}</p>
             </motion.div>
           </div>
-
-          {/* Right — crossfading image stack */}
-          <div className="relative aspect-[16/11] w-full">
-            <SketchFrame className="absolute -inset-3 h-[calc(100%+1.5rem)] w-[calc(100%+1.5rem)]" />
-            {STARTUPS.map((s, i) => (
-              <motion.img
-                key={s.name}
-                src={s.image}
-                alt={`${s.name} preview`}
-                initial={false}
-                animate={{ opacity: i === active ? 1 : 0, scale: i === active ? 1 : 1.03 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="border-border absolute inset-0 h-full w-full rounded-2xl border object-cover shadow-xl"
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* progress track */}
-        <div className="mx-auto mt-12 flex w-full max-w-6xl items-center gap-2">
-          {STARTUPS.map((s, i) => (
-            <span
-              key={s.name}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
-                i === active ? "bg-brand w-10" : "bg-border w-4",
-              )}
-            />
-          ))}
         </div>
       </div>
     </div>
@@ -890,7 +901,7 @@ function StartupsShowcase() {
           </h2>
           <p className="text-muted-foreground mt-5 text-lg leading-relaxed">
             {enhanced
-              ? "Keep scrolling — each startup expands into view, one after another."
+              ? "Scroll through them — each name grows as its story takes the stage on the right."
               : "A few of the startups that came out of the program — every one started as a student with an idea."}
           </p>
         </Reveal>
