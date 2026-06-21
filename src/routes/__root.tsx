@@ -3,6 +3,9 @@ import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import AppProvider from "#/components/app-provider";
+import ErrorOccurred from "#/components/error-occurred";
+import Loading from "#/components/loading";
+import NotFound from "#/components/not-found";
 import { ScrollArea } from "#/components/ui/scroll-area";
 
 import appCss from "../styles.css?url";
@@ -55,5 +58,20 @@ export const Route = createRootRoute({
         <Scripts />
       </body>
     </html>
+  ),
+  pendingComponent: () => (
+    <main className={"h-dvh"}>
+      <Loading />
+    </main>
+  ),
+  errorComponent: ({ error }) => (
+    <main className={"h-dvh"}>
+      <ErrorOccurred error={error} />
+    </main>
+  ),
+  notFoundComponent: () => (
+    <main className={"h-dvh"}>
+      <NotFound />
+    </main>
   ),
 });
