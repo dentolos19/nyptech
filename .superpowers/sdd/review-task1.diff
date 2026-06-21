@@ -1,0 +1,39 @@
+# Review package: 08da02b..929e601
+
+## Commits
+929e601 Move startups showcase below the hero
+
+## Files changed
+ src/routes/index.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+## Diff
+diff --git a/src/routes/index.tsx b/src/routes/index.tsx
+index 329367c..5c5d5f8 100644
+--- a/src/routes/index.tsx
++++ b/src/routes/index.tsx
+@@ -1052,23 +1052,23 @@ function Footer() {
+ 
+ // ── Page ───────────────────────────────────────────────────────────────────────
+ 
+ function Home() {
+   return (
+     <div className="min-h-screen bg-white text-foreground">
+       <Navbar />
+       <main>
+         <Hero />
+         <TrustBand />
++        <StartupsShowcase />
+         <ProgramOverview />
+         <Benefits />
+         <WhoShouldApply />
+         <HowItWorks />
+-        <StartupsShowcase />
+         <SuccessStories />
+         <Faq />
+         <FinalCta />
+       </main>
+       <Footer />
+     </div>
+   );
+ }

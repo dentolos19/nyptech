@@ -1,0 +1,155 @@
+# Review package: 8a8e6b8..142472f
+
+## Commits
+142472f Add smooth scrubbed scaling, click-to-jump, and a11y to startups showcase
+
+## Files changed
+ src/routes/index.tsx | 59 ++++++++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 48 insertions(+), 11 deletions(-)
+
+## Diff
+diff --git a/src/routes/index.tsx b/src/routes/index.tsx
+index 6f608b9..0848e3d 100644
+--- a/src/routes/index.tsx
++++ b/src/routes/index.tsx
+@@ -705,92 +705,129 @@ function StartupImageFrame({ s, className }: { s: (typeof STARTUPS)[number]; cla
+         alt={`${s.name} preview`}
+         className="border-border relative h-full w-full rounded-2xl border object-cover shadow-xl"
+       />
+     </div>
+   );
+ }
+ 
+ function PinnedStartups() {
+   const sectionRef = useRef<HTMLDivElement>(null);
+   const pinRef = useRef<HTMLDivElement>(null);
++  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
++  const triggerRef = useRef<{ start: number; end: number } | null>(null);
+   const [active, setActive] = useState(0);
+ 
+   useEffect(() => {
+     const section = sectionRef.current;
+     const pin = pinRef.current;
+     if (!section || !pin) return;
+ 
+     let ctx: { revert: () => void } | undefined;
+     let cancelled = false;
+ 
+     (async () => {
+       const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+         import("gsap"),
+         import("gsap/ScrollTrigger"),
+       ]);
+       if (cancelled) return;
+       gsap.registerPlugin(ScrollTrigger);
++
+       const maxIdx = STARTUPS.length - 1;
++      const FALLOFF = 1.6; // how many neighbours away the emphasis reaches
++
++      // Continuously style each name by its distance from the fractional
++      // active position: t = 1 at the active name, 0 far away.
++      const applyEmphasis = (frac: number) => {
++        itemRefs.current.forEach((el, i) => {
++          if (!el) return;
++          const d = Math.min(Math.abs(i - frac), FALLOFF);
++          const t = 1 - d / FALLOFF;
++          gsap.set(el, {
++            scale: 0.78 + 0.42 * t, // 0.78 → 1.20
++            opacity: 0.3 + 0.7 * t, // 0.30 → 1
++            fontWeight: Math.round(400 + 300 * t), // 400 → 700 (Fraunces is variable)
++          });
++        });
++      };
++
+       ctx = gsap.context(() => {
+-        ScrollTrigger.create({
++        const st = ScrollTrigger.create({
+           trigger: section,
+           start: "top top",
+           end: () => "+=" + window.innerHeight * maxIdx * 0.9,
+           pin: pin,
+           pinSpacing: true,
+           anticipatePin: 1,
+           scrub: 0.5,
+           invalidateOnRefresh: true,
+-          onUpdate: (self: { progress: number }) => {
+-            const idx = Math.round(self.progress * maxIdx);
++          onUpdate: (self: { progress: number; start: number; end: number }) => {
++            const frac = self.progress * maxIdx;
++            applyEmphasis(frac);
++            triggerRef.current = { start: self.start, end: self.end };
++            const idx = Math.round(frac);
+             setActive((prev) => (prev === idx ? prev : idx));
+           },
+         });
++        triggerRef.current = { start: st.start, end: st.end };
++        applyEmphasis(0);
+       }, section);
+       ScrollTrigger.refresh();
+     })();
+ 
+     return () => {
+       cancelled = true;
+       ctx?.revert();
+     };
+   }, []);
+ 
++  const jumpTo = (i: number) => {
++    const t = triggerRef.current;
++    if (!t) {
++      setActive(i);
++      return;
++    }
++    const top = t.start + (t.end - t.start) * (i / (STARTUPS.length - 1));
++    window.scrollTo({ top, behavior: "smooth" });
++  };
++
+   const current = STARTUPS[active];
+ 
+   return (
+     <div ref={sectionRef} className="relative">
+       <div ref={pinRef} className="flex min-h-screen flex-col justify-center px-6 py-20">
+         <div className="mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-[1fr_1.1fr]">
+           {/* Left — vertical startup list */}
+           <div>
+             <div className="text-brand mb-7 flex items-center gap-3 text-sm font-semibold">
+               <span className="font-mono">{pad(active + 1)}</span>
+               <span className="bg-brand/30 h-px w-10" />
+               <span className="text-muted-foreground font-mono">{pad(STARTUPS.length)}</span>
+               <span className="text-muted-foreground font-sans font-medium tracking-wide uppercase">
+                 · {current.category}
+               </span>
+             </div>
+             <ul className="flex flex-col gap-3">
+               {STARTUPS.map((s, i) => (
+                 <li key={s.name}>
+-                  <span
+-                    className={cn(
+-                      "block origin-left font-serif tracking-tight transition-all duration-500",
+-                      i === active
+-                        ? "text-foreground text-4xl font-bold opacity-100 md:text-5xl"
+-                        : "text-foreground text-2xl font-medium opacity-30 md:text-3xl",
+-                    )}
++                  <button
++                    type="button"
++                    ref={(el) => {
++                      itemRefs.current[i] = el;
++                    }}
++                    onClick={() => jumpTo(i)}
++                    aria-current={i === active ? "true" : undefined}
++                    style={{ transformOrigin: "left center" }}
++                    className="text-foreground block cursor-pointer font-serif text-3xl tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand md:text-4xl"
+                   >
+                     {s.name}
+-                  </span>
++                  </button>
+                 </li>
+               ))}
+             </ul>
+           </div>
+ 
+           {/* Right — crossfading image + caption */}
+           <div>
+             <div className="relative aspect-[16/11] w-full">
+               <SketchFrame className="absolute -inset-3 h-[calc(100%+1.5rem)] w-[calc(100%+1.5rem)]" />
+               {STARTUPS.map((s, i) => (
