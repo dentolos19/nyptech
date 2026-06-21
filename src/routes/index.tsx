@@ -745,7 +745,6 @@ function PinnedStartups() {
           gsap.set(el, {
             scale: 0.78 + 0.42 * t, // 0.78 → 1.20
             opacity: 0.3 + 0.7 * t, // 0.30 → 1
-            fontWeight: Math.round(400 + 300 * t), // 400 → 700 (Fraunces is variable)
           });
         });
       };
@@ -760,15 +759,14 @@ function PinnedStartups() {
           anticipatePin: 1,
           scrub: 0.5,
           invalidateOnRefresh: true,
-          onUpdate: (self: { progress: number; start: number; end: number }) => {
+          onUpdate: (self: { progress: number }) => {
             const frac = self.progress * maxIdx;
             applyEmphasis(frac);
-            triggerRef.current = { start: self.start, end: self.end };
             const idx = Math.round(frac);
             setActive((prev) => (prev === idx ? prev : idx));
           },
         });
-        triggerRef.current = { start: st.start, end: st.end };
+        triggerRef.current = st;
         applyEmphasis(0);
       }, section);
       ScrollTrigger.refresh();
@@ -817,7 +815,9 @@ function PinnedStartups() {
                     onClick={() => jumpTo(i)}
                     aria-current={i === active ? "true" : undefined}
                     style={{ transformOrigin: "left center" }}
-                    className="text-foreground block cursor-pointer font-serif text-3xl tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand md:text-4xl"
+                    className={`text-foreground block cursor-pointer font-serif text-3xl tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand md:text-4xl ${
+                      i === active ? "font-bold" : "font-normal"
+                    }`}
                   >
                     {s.name}
                   </button>
