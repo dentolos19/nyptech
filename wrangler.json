@@ -16,11 +16,5 @@
   "route": {
     "pattern": "nyptech.club",
     "custom_domain": true
-  },
-  "d1_databases": [
-    {
-      "binding": "DATABASE",
-      "database_id": "476a466a-56b2-4fe0-8f43-d4d6c8a5096a"
-    }
-  ]
+  }
 }
