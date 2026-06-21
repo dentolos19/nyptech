@@ -712,6 +712,8 @@ function StartupImageFrame({ s, className }: { s: (typeof STARTUPS)[number]; cla
 function PinnedStartups() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const triggerRef = useRef<{ start: number; end: number } | null>(null);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -729,9 +731,27 @@ function PinnedStartups() {
       ]);
       if (cancelled) return;
       gsap.registerPlugin(ScrollTrigger);
+
       const maxIdx = STARTUPS.length - 1;
+      const FALLOFF = 1.6; // how many neighbours away the emphasis reaches
+
+      // Continuously style each name by its distance from the fractional
+      // active position: t = 1 at the active name, 0 far away.
+      const applyEmphasis = (frac: number) => {
+        itemRefs.current.forEach((el, i) => {
+          if (!el) return;
+          const d = Math.min(Math.abs(i - frac), FALLOFF);
+          const t = 1 - d / FALLOFF;
+          gsap.set(el, {
+            scale: 0.78 + 0.42 * t, // 0.78 → 1.20
+            opacity: 0.3 + 0.7 * t, // 0.30 → 1
+            fontWeight: Math.round(400 + 300 * t), // 400 → 700 (Fraunces is variable)
+          });
+        });
+      };
+
       ctx = gsap.context(() => {
-        ScrollTrigger.create({
+        const st = ScrollTrigger.create({
           trigger: section,
           start: "top top",
           end: () => "+=" + window.innerHeight * maxIdx * 0.9,
@@ -740,11 +760,16 @@ function PinnedStartups() {
           anticipatePin: 1,
           scrub: 0.5,
           invalidateOnRefresh: true,
-          onUpdate: (self: { progress: number }) => {
-            const idx = Math.round(self.progress * maxIdx);
+          onUpdate: (self: { progress: number; start: number; end: number }) => {
+            const frac = self.progress * maxIdx;
+            applyEmphasis(frac);
+            triggerRef.current = { start: self.start, end: self.end };
+            const idx = Math.round(frac);
             setActive((prev) => (prev === idx ? prev : idx));
           },
         });
+        triggerRef.current = { start: st.start, end: st.end };
+        applyEmphasis(0);
       }, section);
       ScrollTrigger.refresh();
     })();
@@ -754,6 +779,16 @@ function PinnedStartups() {
       ctx?.revert();
     };
   }, []);
+
+  const jumpTo = (i: number) => {
+    const t = triggerRef.current;
+    if (!t) {
+      setActive(i);
+      return;
+    }
+    const top = t.start + (t.end - t.start) * (i / (STARTUPS.length - 1));
+    window.scrollTo({ top, behavior: "smooth" });
+  };
 
   const current = STARTUPS[active];
 
@@ -774,16 +809,18 @@ function PinnedStartups() {
             <ul className="flex flex-col gap-3">
               {STARTUPS.map((s, i) => (
                 <li key={s.name}>
-                  <span
-                    className={cn(
-                      "block origin-left font-serif tracking-tight transition-all duration-500",
-                      i === active
-                        ? "text-foreground text-4xl font-bold opacity-100 md:text-5xl"
-                        : "text-foreground text-2xl font-medium opacity-30 md:text-3xl",
-                    )}
+                  <button
+                    type="button"
+                    ref={(el) => {
+                      itemRefs.current[i] = el;
+                    }}
+                    onClick={() => jumpTo(i)}
+                    aria-current={i === active ? "true" : undefined}
+                    style={{ transformOrigin: "left center" }}
+                    className="text-foreground block cursor-pointer font-serif text-3xl tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand md:text-4xl"
                   >
                     {s.name}
-                  </span>
+                  </button>
                 </li>
               ))}
             </ul>
