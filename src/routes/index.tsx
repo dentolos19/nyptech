@@ -2,22 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, X } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import type { ComponentType, ReactNode } from "react";
+import type { ComponentType, CSSProperties, ReactNode, RefObject } from "react";
 
 import { Accordion, AccordionItem } from "#/components/ui/accordion.tsx";
 import {
-  DashedConnector,
   DoodleArrow,
-  IconApply,
-  IconBuild,
-  IconCommunity,
   IconDemo,
-  IconFunding,
-  IconInterview,
-  IconMentor,
-  IconNetwork,
   IconRocket,
-  IconSpace,
   QuoteMark,
   Reveal,
   SketchCheck,
@@ -44,39 +35,6 @@ const STATS = [
   { value: "$[XX]K+", label: "funding deployed" },
 ];
 
-const BENEFITS: { icon: ComponentType<{ className?: string }>; title: string; body: string }[] = [
-  {
-    icon: IconFunding,
-    title: "Funding to start",
-    body: "Up to $[XX]K to build your first real version — no equity, no strings. Money to make, not to owe.",
-  },
-  {
-    icon: IconMentor,
-    title: "Mentors who've shipped",
-    body: "Weekly 1:1s with founders, operators, and investors who've built and sold real products.",
-  },
-  {
-    icon: IconSpace,
-    title: "A room to build in",
-    body: "A dedicated workspace on campus, plus the tools, software credits, and resources to move fast.",
-  },
-  {
-    icon: IconNetwork,
-    title: "A network for life",
-    body: "Graduate into an alumni community of builders who open doors, give advice, and back each other.",
-  },
-  {
-    icon: IconDemo,
-    title: "Your Demo Day",
-    body: "End the program on stage, pitching your company to investors and industry partners.",
-  },
-  {
-    icon: IconCommunity,
-    title: "People who get it",
-    body: "Build beside the most driven students at NYP. Around here, ambition is contagious.",
-  },
-];
-
 const PERSONAS = [
   {
     tag: "The tinkerer",
@@ -94,14 +52,6 @@ const PERSONAS = [
     tag: "The first-timer",
     body: "You've never built a company and have no clue where to start. Perfect — that's exactly what this is for.",
   },
-];
-
-const STEPS: { icon: ComponentType<{ className?: string }>; n: string; title: string; body: string }[] = [
-  { icon: IconApply, n: "01", title: "Apply", body: "A short application. About [10] minutes — no pitch deck required." },
-  { icon: IconInterview, n: "02", title: "Interview", body: "We chat with promising applicants to get to know you and your idea." },
-  { icon: IconBuild, n: "03", title: "Build", body: "[6] months of focused building, with funding, mentorship, and space." },
-  { icon: IconDemo, n: "04", title: "Demo Day", body: "Pitch your company to a room of investors and industry partners." },
-  { icon: IconNetwork, n: "05", title: "Alumni", body: "Graduate into a lifelong network of NYP founders and builders." },
 ];
 
 const STORIES = [
@@ -162,13 +112,27 @@ const STARTUPS = [
     image: "/assets/blog/workshop.jpeg",
   },
   {
-    name: "Startup Six",
-    category: "Consumer",
-    blurb: "[One or two sentences on what this startup builds and the problem it solves for its users.]",
-    metric: "[X]+ downloads",
-    image: "/assets/blog/hackathon.jpeg",
+    name: "$100K+",
+    category: "Combined valuation",
+    blurb: "A growing portfolio of student-built companies creating real value across software, AI, commerce, and community.",
+    metric: "combined valuation",
+    isMilestone: true,
   },
 ];
+
+const STARTUP_LOGOS = [
+  { name: "Bihance", src: "/assets/startups/bihance.png" },
+  { name: "ProcoLink", src: "/assets/startups/procolink.png" },
+  { name: "Virage", src: "/assets/startups/virage.png" },
+  { name: "Pronto", src: "/assets/startups/pronto.png" },
+];
+
+const LOGO_COLLAGE_POSITIONS: Record<string, CSSProperties> = {
+  Bihance: { left: "6%", top: "10%", transform: "rotate(-4deg)" },
+  ProcoLink: { right: "10%", top: "17%", transform: "rotate(3deg)" },
+  Virage: { left: "18%", bottom: "12%", transform: "rotate(3deg)" },
+  Pronto: { right: "4%", bottom: "8%", transform: "rotate(-3deg)" },
+};
 
 const FAQS = [
   {
@@ -203,8 +167,6 @@ const FAQS = [
 
 const NAV_LINKS = [
   { label: "Program", href: "#program" },
-  { label: "Benefits", href: "#benefits" },
-  { label: "How it works", href: "#how" },
   { label: "Startups", href: "#startups" },
   { label: "FAQ", href: "#faq" },
 ];
@@ -267,6 +229,114 @@ function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
+function useGsapSectionAnimations(sectionRef: RefObject<HTMLElement | null>) {
+  const reduced = useReducedMotion();
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || reduced) return;
+
+    let ctx: { revert: () => void } | undefined;
+    let cancelled = false;
+    const cleanups: (() => void)[] = [];
+
+    (async () => {
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      if (cancelled) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      ctx = gsap.context(() => {
+        const heading = section.querySelector<HTMLElement>("[data-gsap-heading]");
+        const items = gsap.utils.toArray<HTMLElement>(section.querySelectorAll("[data-gsap-item]"));
+        const floats = gsap.utils.toArray<HTMLElement>(section.querySelectorAll("[data-gsap-float]"));
+        const tiltCards = gsap.utils.toArray<HTMLElement>(section.querySelectorAll("[data-gsap-tilt]"));
+
+        if (heading) {
+          gsap.fromTo(
+            heading,
+            { opacity: 0, y: 34, clipPath: "inset(0 0 100% 0)" },
+            {
+              opacity: 1,
+              y: 0,
+              clipPath: "inset(0 0 0% 0)",
+              duration: 0.9,
+              ease: "power3.out",
+              scrollTrigger: { trigger: heading, start: "top 82%", once: true },
+            },
+          );
+        }
+
+        if (items.length) {
+          gsap.fromTo(
+            items,
+            { opacity: 0, y: 42, scale: 0.96 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.85,
+              stagger: 0.08,
+              ease: "power3.out",
+              scrollTrigger: { trigger: section, start: "top 72%", once: true },
+            },
+          );
+        }
+
+        floats.forEach((el, i) => {
+          gsap.to(el, {
+            y: i % 2 === 0 ? -28 : 24,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        });
+
+        tiltCards.forEach((card) => {
+          const onMove = (event: PointerEvent) => {
+            const rect = card.getBoundingClientRect();
+            const x = (event.clientX - rect.left) / rect.width - 0.5;
+            const y = (event.clientY - rect.top) / rect.height - 0.5;
+            gsap.to(card, {
+              rotateX: y * -4,
+              rotateY: x * 5,
+              y: -6,
+              duration: 0.35,
+              ease: "power2.out",
+              transformPerspective: 900,
+            });
+          };
+          const onLeave = () => {
+            gsap.to(card, { rotateX: 0, rotateY: 0, y: 0, duration: 0.55, ease: "elastic.out(1, 0.55)" });
+          };
+
+          card.addEventListener("pointermove", onMove);
+          card.addEventListener("pointerleave", onLeave);
+          cleanups.push(() => {
+            card.removeEventListener("pointermove", onMove);
+            card.removeEventListener("pointerleave", onLeave);
+          });
+        });
+      }, section);
+
+      ScrollTrigger.refresh();
+    })();
+
+    return () => {
+      cancelled = true;
+      cleanups.forEach((cleanup) => cleanup());
+      ctx?.revert();
+    };
+  }, [reduced, sectionRef]);
+}
+
 function SectionShell({
   id,
   children,
@@ -276,9 +346,12 @@ function SectionShell({
   children: ReactNode;
   className?: string;
 }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  useGsapSectionAnimations(sectionRef);
+
   return (
-    <section id={id} className={cn("px-6 py-24 md:py-32", className)}>
-      <div className="mx-auto max-w-6xl">{children}</div>
+    <section ref={sectionRef} id={id} className={cn("px-6 py-24 md:py-32 lg:px-10", className)}>
+      <div className="mx-auto max-w-[1440px]">{children}</div>
     </section>
   );
 }
@@ -374,6 +447,153 @@ function Navbar() {
 
 // ── Hero ─────────────────────────────────────────────────────────────────────
 
+function HeroInfinityParticles() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const reduced = useReducedMotion();
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    type Particle = {
+      x: number;
+      y: number;
+      tx: number;
+      ty: number;
+      vx: number;
+      vy: number;
+      r: number;
+      alpha: number;
+    };
+
+    const particles: Particle[] = [];
+    const pointer = { x: 0, y: 0, active: false };
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let frame = 0;
+    let animation = 0;
+
+    const buildParticles = () => {
+      particles.length = 0;
+      const count = Math.min(1800, Math.max(900, Math.floor(width / 1.28)));
+      const scaleX = Math.min(width * 0.34, height * 1.05);
+      const scaleY = Math.min(width * 0.17, height * 0.32);
+      const cx = width / 2;
+      const cy = height * 0.46;
+
+      for (let i = 0; i < count; i++) {
+        const t = (i / count) * Math.PI * 2;
+        const wobble = Math.sin(i * 1.73) * 0.018;
+        const band = (Math.random() - 0.5) * 88;
+        const x = cx + scaleX * Math.sin(t + wobble) + band * Math.cos(t * 2);
+        const y = cy + scaleY * Math.sin(t * 2 + wobble) + band * Math.sin(t);
+
+        particles.push({
+          x: x + (Math.random() - 0.5) * 80,
+          y: y + (Math.random() - 0.5) * 60,
+          tx: x,
+          ty: y,
+          vx: 0,
+          vy: 0,
+          r: 1.25 + Math.random() * 1.55,
+          alpha: 0.08 + Math.random() * 0.22,
+        });
+      }
+    };
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildParticles();
+    };
+
+    const updatePointer = (event: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      pointer.active = x >= 0 && x <= rect.width && y >= 0 && y <= rect.height;
+      pointer.x = x;
+      pointer.y = y;
+    };
+
+    const clearPointer = () => {
+      pointer.active = false;
+    };
+
+    const draw = () => {
+      frame += 1;
+      ctx.clearRect(0, 0, width, height);
+
+      const gradient = ctx.createRadialGradient(width / 2, height * 0.36, 40, width / 2, height * 0.36, width * 0.52);
+      gradient.addColorStop(0, "rgba(37, 99, 235, 0.10)");
+      gradient.addColorStop(0.48, "rgba(37, 99, 235, 0.035)");
+      gradient.addColorStop(1, "rgba(37, 99, 235, 0)");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+
+      for (const p of particles) {
+        let dx = 0;
+        let dy = 0;
+
+        if (pointer.active && !reduced) {
+          const px = p.x - pointer.x;
+          const py = p.y - pointer.y;
+          const dist = Math.max(1, Math.hypot(px, py));
+          const radius = 145;
+          if (dist < radius) {
+            const force = (1 - dist / radius) ** 2;
+            dx += (px / dist) * force * 72;
+            dy += (py / dist) * force * 72;
+          }
+        }
+
+        const breathe = reduced ? 0 : Math.sin(frame * 0.018 + p.tx * 0.012) * 1.8;
+        const targetX = p.tx + dx;
+        const targetY = p.ty + dy + breathe;
+
+        p.vx += (targetX - p.x) * 0.035;
+        p.vy += (targetY - p.y) * 0.035;
+        p.vx *= 0.82;
+        p.vy *= 0.82;
+        p.x += p.vx;
+        p.y += p.vy;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(37, 99, 235, ${p.alpha})`;
+        ctx.fill();
+      }
+
+      if (!reduced) animation = requestAnimationFrame(draw);
+    };
+
+    resize();
+    draw();
+
+    window.addEventListener("resize", resize);
+    window.addEventListener("pointermove", updatePointer);
+    window.addEventListener("pointerleave", clearPointer);
+
+    return () => {
+      cancelAnimationFrame(animation);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", updatePointer);
+      window.removeEventListener("pointerleave", clearPointer);
+    };
+  }, [reduced]);
+
+  return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" />;
+}
+
 function Hero() {
   const reduced = useReducedMotion();
   const rise = (delay: number) => ({
@@ -391,9 +611,11 @@ function Hero() {
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background: "radial-gradient(60% 45% at 50% -5%, var(--brand-soft) 0%, transparent 70%)",
+          background:
+            "radial-gradient(48% 36% at 50% 18%, var(--brand-soft) 0%, transparent 72%), linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(246,249,255,0.72) 78%, white 100%)",
         }}
       />
+      <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-36 bg-gradient-to-b from-transparent via-white/75 to-white" />
       <div
         className="pointer-events-none absolute inset-0 text-brand opacity-[0.06]"
         style={{
@@ -402,11 +624,9 @@ function Hero() {
           maskImage: "radial-gradient(70% 60% at 50% 30%, black, transparent)",
         }}
       />
-      <Sparkle className="absolute top-28 left-[12%] size-5 text-brand/30" />
-      <Sparkle className="absolute top-44 right-[14%] size-7 text-brand/20" />
-      <Sparkle className="absolute bottom-16 left-[20%] size-4 text-brand/20" />
+      <HeroInfinityParticles />
 
-      <div className="relative mx-auto max-w-4xl text-center">
+      <div className="relative z-10 mx-auto max-w-4xl text-center">
         <motion.div {...rise(0)} className="mb-7 flex justify-center">
           <span className="border-brand/15 bg-brand-soft text-brand inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[13px] font-medium">
             <span className="bg-brand size-1.5 rounded-full" />
@@ -439,8 +659,8 @@ function Hero() {
           <CtaLink href={APPLY_URL} external variant="primary" arrow>
             Apply now
           </CtaLink>
-          <CtaLink href="#how" variant="secondary">
-            See how it works
+          <CtaLink href="#startups" variant="secondary">
+            See startups
           </CtaLink>
         </motion.div>
 
@@ -456,7 +676,7 @@ function Hero() {
 
 function TrustBand() {
   return (
-    <section className="border-b border-border bg-white px-6 py-12">
+    <section className="border-b border-border bg-gradient-to-b from-white via-white to-muted/25 px-6 py-12">
       <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 md:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 0.08} className="text-center">
@@ -475,8 +695,8 @@ function GrowthSketch() {
   const reduced = useReducedMotion();
   return (
     <div className="relative">
-      <div className="relative rounded-2xl border border-border bg-brand-soft/60 p-8">
-        <SketchFrame className="absolute inset-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)]" />
+      <div className="relative overflow-hidden rounded-2xl border border-border bg-brand-soft/60 p-8">
+        <SketchFrame className="pointer-events-none absolute inset-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)]" />
         <svg viewBox="0 0 340 260" className="relative w-full text-brand" fill="none" aria-hidden="true">
           {/* axes */}
           <path
@@ -500,12 +720,12 @@ function GrowthSketch() {
           />
           <path d="M244 44l-2-22m2 22l20-6" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        <IconRocket className="absolute top-7 right-8 size-9 text-brand" />
-        <Sparkle className="absolute bottom-10 left-10 size-4 text-brand/50" />
-        <div className="absolute bottom-7 left-9 font-serif text-sm text-muted-foreground">
+        <IconRocket className="absolute top-12 right-16 size-8 text-brand" />
+        <Sparkle className="absolute bottom-16 left-20 size-4 text-brand/50" />
+        <div className="absolute bottom-12 left-20 max-w-28 font-serif text-sm leading-none text-muted-foreground">
           you are here
         </div>
-        <div className="absolute top-16 right-9 font-serif text-sm font-medium text-brand">
+        <div className="absolute top-18 right-24 max-w-28 text-right font-serif text-sm leading-none font-medium text-brand">
           Demo Day
         </div>
       </div>
@@ -519,7 +739,7 @@ function ProgramOverview() {
       <div className="grid items-center gap-14 md:grid-cols-2">
         <Reveal>
           <Eyebrow>The program</Eyebrow>
-          <h2 className="mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight text-foreground md:text-5xl">
+          <h2 data-gsap-heading className="mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight text-foreground md:text-5xl">
             So, what is it,
             <br />
             <span className="relative inline-block">
@@ -527,7 +747,7 @@ function ProgramOverview() {
               <SketchCircle className="absolute -inset-x-4 -inset-y-3 h-[calc(100%+1.5rem)] w-[calc(100%+2rem)]" />
             </span>
           </h2>
-          <div className="mt-7 space-y-5 text-[15px] leading-relaxed text-muted-foreground">
+          <div data-gsap-item className="mt-7 space-y-5 text-[15px] leading-relaxed text-muted-foreground">
             <p>
               The NYP Tech Incubator is for students who want to build real companies — not class
               projects. Every [semester] we take a small cohort of teams and spend [6] months
@@ -545,41 +765,10 @@ function ProgramOverview() {
         </Reveal>
 
         <Reveal delay={0.15}>
+          <div data-gsap-item data-gsap-float data-gsap-tilt>
           <GrowthSketch />
+          </div>
         </Reveal>
-      </div>
-    </SectionShell>
-  );
-}
-
-// ── Benefits ─────────────────────────────────────────────────────────────────
-
-function Benefits() {
-  return (
-    <SectionShell id="benefits" className="bg-muted/50">
-      <Reveal className="max-w-2xl">
-        <Eyebrow>Why join</Eyebrow>
-        <h2 className="mt-5 text-4xl leading-tight font-bold tracking-tight text-foreground md:text-5xl">
-          Everything you need to
-          <span className="relative whitespace-nowrap">
-            {" "}go from idea to company.
-            <SketchUnderline className="absolute -bottom-1 left-0 h-2.5 w-full" />
-          </span>
-        </h2>
-      </Reveal>
-
-      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {BENEFITS.map((b, i) => (
-          <Reveal key={b.title} delay={(i % 3) * 0.08}>
-            <div className="group h-full rounded-2xl border border-border bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-brand/30 hover:shadow-lg hover:shadow-brand/5">
-              <div className="grid size-12 place-items-center rounded-xl bg-brand-soft transition-colors group-hover:bg-brand/10">
-                <b.icon className="size-6" />
-              </div>
-              <h3 className="mt-5 text-lg font-semibold tracking-tight text-foreground">{b.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{b.body}</p>
-            </div>
-          </Reveal>
-        ))}
       </div>
     </SectionShell>
   );
@@ -595,7 +784,7 @@ function WhoShouldApply() {
     <SectionShell id="who">
       <Reveal className="max-w-2xl">
         <Eyebrow>Who it's for</Eyebrow>
-        <h2 className="mt-5 text-4xl leading-tight font-bold tracking-tight text-foreground md:text-5xl">
+        <h2 data-gsap-heading className="mt-5 text-4xl leading-tight font-bold tracking-tight text-foreground md:text-5xl">
           You don't have to be a <span className="font-serif italic">“startup person.”</span>
         </h2>
         <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
@@ -607,7 +796,7 @@ function WhoShouldApply() {
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {PERSONAS.map((p, i) => (
           <Reveal key={p.tag} delay={(i % 4) * 0.07}>
-            <div className="h-full rounded-2xl border border-border bg-white p-6">
+            <div data-gsap-item data-gsap-tilt className="h-full rounded-2xl border border-border bg-white p-6">
               <span className="font-serif text-lg font-medium text-brand">{p.tag}</span>
               <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{p.body}</p>
             </div>
@@ -617,7 +806,7 @@ function WhoShouldApply() {
 
       <Reveal delay={0.1}>
         <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
-          <div className="bg-white p-8">
+          <div data-gsap-item className="bg-white p-8">
             <p className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
               You don't need
             </p>
@@ -632,7 +821,7 @@ function WhoShouldApply() {
               ))}
             </ul>
           </div>
-          <div className="bg-white p-8">
+          <div data-gsap-item className="bg-white p-8">
             <p className="text-sm font-semibold tracking-wide text-brand uppercase">You just need</p>
             <ul className="mt-5 space-y-3.5">
               {need.map((item) => (
@@ -649,51 +838,6 @@ function WhoShouldApply() {
   );
 }
 
-// ── How it works ─────────────────────────────────────────────────────────────
-
-function HowItWorks() {
-  return (
-    <SectionShell id="how" className="bg-muted/50">
-      <Reveal className="max-w-2xl">
-        <Eyebrow>How it works</Eyebrow>
-        <h2 className="mt-5 text-4xl leading-tight font-bold tracking-tight text-foreground md:text-5xl">
-          From application to Demo Day.
-        </h2>
-        <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-          Five steps. The hardest one is the first — and it takes about [10] minutes.
-        </p>
-      </Reveal>
-
-      <div className="mt-16 grid gap-6 lg:grid-cols-5">
-        {STEPS.map((step, i) => (
-          <Reveal key={step.n} delay={i * 0.1} className="relative">
-            {/* connector to the next step (desktop) */}
-            {i < STEPS.length - 1 && (
-              <DashedConnector className="absolute top-9 left-[60%] hidden h-6 w-[80%] lg:block" />
-            )}
-            <div className="relative flex flex-col items-start">
-              <div className="relative grid size-[72px] place-items-center rounded-2xl border border-border bg-white shadow-sm">
-                <step.icon className="size-8" />
-                <span className="absolute -top-2.5 -right-2.5 grid size-7 place-items-center rounded-full bg-brand text-xs font-bold text-white">
-                  {i + 1}
-                </span>
-              </div>
-              <h3 className="mt-5 text-lg font-semibold tracking-tight text-foreground">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      <Reveal delay={0.2} className="mt-12 flex justify-center">
-        <CtaLink href={APPLY_URL} external variant="primary" arrow>
-          Start your application
-        </CtaLink>
-      </Reveal>
-    </SectionShell>
-  );
-}
-
 // ── Success stories ─────────────────────────────────────────────────────────
 
 function SuccessStories() {
@@ -701,7 +845,7 @@ function SuccessStories() {
     <SectionShell id="stories">
       <Reveal className="max-w-2xl">
         <Eyebrow>Success stories</Eyebrow>
-        <h2 className="mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight text-foreground md:text-5xl">
+        <h2 data-gsap-heading className="mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight text-foreground md:text-5xl">
           Built by students who started right where you are.
         </h2>
       </Reveal>
@@ -709,7 +853,7 @@ function SuccessStories() {
       <div className="mt-14 grid gap-5 md:grid-cols-3">
         {STORIES.map((s, i) => (
           <Reveal key={i} delay={i * 0.1}>
-            <figure className="relative flex h-full flex-col rounded-2xl border border-border bg-white p-7">
+            <figure data-gsap-item data-gsap-tilt className="relative flex h-full flex-col rounded-2xl border border-border bg-white p-7">
               <QuoteMark className="h-8 w-10" />
               <blockquote className="mt-4 flex-1 text-[15px] leading-relaxed text-foreground">
                 {s.quote}
@@ -753,6 +897,10 @@ function StartupText({ s }: { s: (typeof STARTUPS)[number] }) {
 }
 
 function StartupImageFrame({ s, className }: { s: (typeof STARTUPS)[number]; className?: string }) {
+  if (s.isMilestone) {
+    return <StartupLogoGrid className={className} />;
+  }
+
   return (
     <div className={cn("relative aspect-[16/11] w-full", className)}>
       <SketchFrame className="absolute -inset-3 h-[calc(100%+1.5rem)] w-[calc(100%+1.5rem)]" />
@@ -761,6 +909,25 @@ function StartupImageFrame({ s, className }: { s: (typeof STARTUPS)[number]; cla
         alt={`${s.name} preview`}
         className="border-border relative h-full w-full rounded-2xl border object-cover shadow-xl"
       />
+    </div>
+  );
+}
+
+function StartupLogoGrid({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn(
+        "border-border/70 flex aspect-square w-full items-center justify-center rounded-[2rem] border bg-[#f7f7f2] p-8 shadow-[0_24px_70px_rgba(15,23,42,0.10)]",
+        className,
+      )}
+    >
+      <div className="grid w-full max-w-lg grid-cols-2 items-center gap-x-12 gap-y-12 sm:grid-cols-4 sm:gap-x-10">
+        {STARTUP_LOGOS.map((logo) => (
+          <div key={logo.name} className="flex items-center justify-center">
+            <img src={logo.src} alt={logo.name} className="max-h-12 max-w-28 object-contain" />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -789,7 +956,7 @@ function PinnedStartups() {
       gsap.registerPlugin(ScrollTrigger);
 
       const maxIdx = STARTUPS.length - 1;
-      const FALLOFF = 1.6; // how many neighbours away the emphasis reaches
+      const FALLOFF = 1.8; // how many neighbours away the emphasis reaches
 
       // Continuously style each name by its distance from the fractional
       // active position: t = 1 at the active name, 0 far away.
@@ -799,8 +966,9 @@ function PinnedStartups() {
           const d = Math.min(Math.abs(i - frac), FALLOFF);
           const t = 1 - d / FALLOFF;
           gsap.set(el, {
-            scale: 0.78 + 0.42 * t, // 0.78 → 1.20
-            opacity: 0.3 + 0.7 * t, // 0.30 → 1
+            y: -4 * t,
+            scale: 0.92 + 0.12 * t, // 0.92 -> 1.04, restrained and polished
+            opacity: 0.18 + 0.82 * t, // 0.18 -> 1
           });
         });
       };
@@ -848,21 +1016,13 @@ function PinnedStartups() {
 
   return (
     <div ref={sectionRef} className="relative">
-      <div ref={pinRef} className="flex min-h-screen flex-col justify-center px-6 py-20">
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-[1fr_1.1fr]">
+      <div ref={pinRef} className="flex min-h-screen flex-col justify-center px-6 py-16 md:py-20 lg:px-10">
+        <div className="mx-auto grid w-full max-w-[1440px] items-center gap-8 md:grid-cols-[0.82fr_1.18fr] lg:gap-10">
           {/* Left — vertical startup list */}
           <div>
-            <div className="text-brand mb-7 flex items-center gap-3 text-sm font-semibold">
-              <span className="font-mono">{pad(active + 1)}</span>
-              <span className="bg-brand/30 h-px w-10" />
-              <span className="text-muted-foreground font-mono">{pad(STARTUPS.length)}</span>
-              <span className="text-muted-foreground font-sans font-medium tracking-wide uppercase">
-                · {current.category}
-              </span>
-            </div>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-9 md:gap-11 lg:gap-12">
               {STARTUPS.map((s, i) => (
-                <li key={s.name}>
+                <li key={s.name} className={cn(s.isMilestone && "pt-8 md:pt-12")}>
                   <button
                     type="button"
                     ref={(el) => {
@@ -871,11 +1031,39 @@ function PinnedStartups() {
                     onClick={() => jumpTo(i)}
                     aria-current={i === active ? "true" : undefined}
                     style={{ transformOrigin: "left center" }}
-                    className={`text-foreground block cursor-pointer font-serif text-3xl tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand md:text-4xl ${
-                      i === active ? "font-bold" : "font-normal"
+                    className={`block cursor-pointer font-sans text-4xl leading-none tracking-[-0.045em] transition-colors duration-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand md:text-5xl lg:text-[3.6rem] ${
+                      i === active ? "text-foreground font-semibold" : "text-foreground/12 font-medium"
                     }`}
                   >
-                    {s.name}
+                    <motion.span
+                      key={i === active ? `${s.name}-active` : `${s.name}-inactive`}
+                      initial={i === active ? { color: "var(--foreground)" } : false}
+                      animate={i === active ? { color: "var(--brand)" } : undefined}
+                      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                      className="relative inline-block pb-3"
+                    >
+                      {s.isMilestone ? (
+                        <span className="block">
+                          <span className="block">{s.name}</span>
+                          <span className="mt-2 block text-lg font-medium tracking-[-0.02em] md:text-xl">
+                            combined valuation
+                          </span>
+                        </span>
+                      ) : (
+                        s.name
+                      )}
+                      {i === active && (
+                        <motion.span
+                          aria-hidden="true"
+                          initial={{ scaleX: 0, opacity: 0 }}
+                          animate={{ scaleX: 1, opacity: 1 }}
+                          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                          className="absolute right-0 -bottom-1 left-0 h-3 origin-left text-brand"
+                        >
+                          <SketchUnderline className="h-full w-full" />
+                        </motion.span>
+                      )}
+                    </motion.span>
                   </button>
                 </li>
               ))}
@@ -883,31 +1071,76 @@ function PinnedStartups() {
           </div>
 
           {/* Right — crossfading image + caption */}
-          <div>
-            <div className="relative aspect-[16/11] w-full">
-              <SketchFrame className="absolute -inset-3 h-[calc(100%+1.5rem)] w-[calc(100%+1.5rem)]" />
-              {STARTUPS.map((s, i) => (
-                <motion.img
-                  key={s.name}
-                  src={s.image}
-                  alt={`${s.name} preview`}
-                  initial={false}
-                  animate={{ opacity: i === active ? 1 : 0, scale: i === active ? 1 : 1.03 }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="border-border absolute inset-0 h-full w-full rounded-2xl border object-cover shadow-xl"
-                />
-              ))}
+          <div className="min-w-0 pr-0 text-center">
+            <div
+              className={cn(
+                "relative mx-auto w-full max-w-[760px] overflow-hidden",
+                current.isMilestone
+                  ? "flex min-h-[520px] items-center justify-center"
+                  : "aspect-square rounded-[2.25rem] border border-white/80 bg-white p-2 shadow-[0_30px_90px_rgba(15,23,42,0.12)] ring-1 ring-black/5",
+              )}
+            >
+              {!current.isMilestone && <div className="absolute inset-0 bg-gradient-to-br from-white/70 via-transparent to-brand/5" />}
+              <div
+                className={cn(
+                  "relative h-full w-full overflow-hidden",
+                  current.isMilestone ? "min-h-[520px]" : "rounded-[1.75rem] bg-muted",
+                )}
+              >
+                {STARTUPS.map((s, i) =>
+                  s.isMilestone ? (
+                    <motion.div
+                      key={s.name}
+                      initial={false}
+                      animate={{
+                        opacity: i === active ? 1 : 0,
+                        scale: i === active ? 1 : 1.035,
+                        filter: i === active ? "blur(0px)" : "blur(3px)",
+                      }}
+                      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute inset-0 flex items-center justify-center p-4"
+                    >
+                      <div className="relative h-[440px] w-full max-w-2xl">
+                        {STARTUP_LOGOS.map((logo) => (
+                          <img
+                            key={logo.name}
+                            src={logo.src}
+                            alt={logo.name}
+                            className="absolute h-28 w-48 object-contain"
+                            style={LOGO_COLLAGE_POSITIONS[logo.name]}
+                          />
+                        ))}
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.img
+                      key={s.name}
+                      src={s.image}
+                      alt={`${s.name} preview`}
+                      initial={false}
+                      animate={{
+                        opacity: i === active ? 1 : 0,
+                        scale: i === active ? 1 : 1.035,
+                        filter: i === active ? "blur(0px)" : "blur(3px)",
+                      }}
+                      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ),
+                )}
+              </div>
             </div>
             <motion.div
               key={active}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="mx-auto max-w-xl"
             >
-              <p className="text-muted-foreground mt-8 max-w-md text-base leading-relaxed">
+              <p className="text-muted-foreground mt-7 text-[15px] leading-relaxed md:text-base">
                 {current.blurb}
               </p>
-              <p className="text-brand mt-3 text-sm font-semibold">{current.metric}</p>
+              <p className="text-foreground mt-3 text-sm font-medium">{current.metric}</p>
             </motion.div>
           </div>
         </div>
@@ -982,29 +1215,8 @@ function StartupsShowcase() {
 
   return (
     <section id="startups" className="bg-muted/30 py-24 md:py-28">
-      <div className="mx-auto max-w-6xl px-6">
-        <Reveal className="max-w-2xl">
-          <Eyebrow>Our startups</Eyebrow>
-          <h2 className="text-foreground mt-5 text-4xl leading-tight font-bold tracking-tight md:text-5xl">
-            Real companies, built right
-            <span className="text-brand relative whitespace-nowrap">
-              {" "}here.
-              <SketchUnderline className="absolute -bottom-1 left-0 h-2.5 w-full" />
-            </span>
-          </h2>
-          <p className="text-muted-foreground mt-5 text-lg leading-relaxed">
-            {enhanced
-              ? "Scroll through them — each name grows as its story takes the stage on the right."
-              : "A few of the startups that came out of the program — every one started as a student with an idea."}
-          </p>
-        </Reveal>
-      </div>
+      {enhanced ? <PinnedStartups /> : <StackedStartups />}
 
-      <div className="mt-12">{enhanced ? <PinnedStartups /> : <StackedStartups />}</div>
-
-      <div className="mx-auto max-w-6xl px-6">
-        <StartupsMarquee />
-      </div>
     </section>
   );
 }
@@ -1017,16 +1229,19 @@ function Faq() {
       <div className="grid gap-12 md:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
           <Eyebrow>Questions</Eyebrow>
-          <h2 className="mt-5 text-4xl leading-tight font-bold tracking-tight text-foreground md:text-5xl">
+          <h2 data-gsap-heading className="mt-5 text-4xl leading-tight font-bold tracking-tight text-foreground md:text-5xl">
             Good questions.
           </h2>
           <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground">
             Still unsure about something? Reach out — we'd rather you ask than not apply.
           </p>
-          <DoodleArrow className="mt-8 hidden size-20 -scale-x-100 text-brand/40 md:block" />
+          <div data-gsap-float>
+            <DoodleArrow className="mt-8 hidden size-20 -scale-x-100 text-brand/40 md:block" />
+          </div>
         </Reveal>
 
         <Reveal delay={0.1}>
+          <div data-gsap-item>
           <Accordion>
             {FAQS.map((f, i) => (
               <AccordionItem key={i} value={`faq-${i}`} question={f.q}>
@@ -1034,6 +1249,7 @@ function Faq() {
               </AccordionItem>
             ))}
           </Accordion>
+          </div>
         </Reveal>
       </div>
     </SectionShell>
@@ -1043,9 +1259,12 @@ function Faq() {
 // ── Final CTA ─────────────────────────────────────────────────────────────────
 
 function FinalCta() {
+  const sectionRef = useRef<HTMLElement>(null);
+  useGsapSectionAnimations(sectionRef);
+
   return (
-    <section id="apply" className="px-6 py-20">
-      <div className="border-brand/15 bg-brand-soft/50 relative mx-auto max-w-6xl overflow-hidden rounded-3xl border px-6 py-20 text-center md:py-28">
+    <section ref={sectionRef} id="apply" className="px-6 py-20">
+      <div data-gsap-item data-gsap-tilt className="border-brand/15 bg-brand-soft/50 relative mx-auto max-w-6xl overflow-hidden rounded-3xl border px-6 py-20 text-center md:py-28">
         <div
           className="text-brand pointer-events-none absolute inset-0 opacity-[0.06]"
           style={{
@@ -1057,7 +1276,7 @@ function FinalCta() {
         <Sparkle className="text-brand/25 absolute right-[18%] bottom-16 size-5" />
 
         <Reveal className="relative mx-auto max-w-2xl">
-          <h2 className="text-foreground font-serif text-5xl leading-[1.05] font-medium tracking-tight md:text-6xl">
+          <h2 data-gsap-heading className="text-foreground font-serif text-5xl leading-[1.05] font-medium tracking-tight md:text-6xl">
             It's never too early
             <br />
             to{" "}
@@ -1165,12 +1384,10 @@ function Home() {
         <TrustBand />
         <StartupsShowcase />
         <ProgramOverview />
-        <Benefits />
         <WhoShouldApply />
-        <HowItWorks />
+        <FinalCta />
         <SuccessStories />
         <Faq />
-        <FinalCta />
       </main>
       <Footer />
     </div>
