@@ -2,12 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, X } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import type { ComponentType, CSSProperties, ReactNode, RefObject } from "react";
+import type { CSSProperties, ReactNode, RefObject } from "react";
 
 import { Accordion, AccordionItem } from "#/components/ui/accordion.tsx";
 import {
   DoodleArrow,
-  IconDemo,
   IconRocket,
   QuoteMark,
   Reveal,
@@ -1169,31 +1168,6 @@ function StackedStartups() {
           </div>
         </Reveal>
       ))}
-    </div>
-  );
-}
-
-function StartupsMarquee() {
-  const reduced = useReducedMotion();
-  const marquee = [...STARTUPS, ...STARTUPS];
-  return (
-    <div className="mt-16 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-      <motion.div
-        className="flex w-max items-center gap-4"
-        animate={reduced ? undefined : { x: ["-50%", "0%"] }}
-        transition={{ duration: 36, ease: "linear", repeat: Infinity }}
-      >
-        {marquee.map((s, i) => (
-          <span
-            key={i}
-            className="border-border text-muted-foreground flex items-center gap-2 rounded-full border bg-white px-4 py-2 text-sm font-medium whitespace-nowrap"
-          >
-            <span className="bg-brand size-1.5 rounded-full" />
-            {s.name}
-            <span className="text-muted-foreground/60 text-xs">· {s.category}</span>
-          </span>
-        ))}
-      </motion.div>
     </div>
   );
 }
