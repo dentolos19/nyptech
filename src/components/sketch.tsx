@@ -85,12 +85,7 @@ export function SketchUnderline({
       aria-hidden="true"
       className={cn("text-brand", className)}
     >
-      <DrawPath
-        d="M3 9C36 3 64 11 98 6c30-4 64 6 99 1"
-        delay={delay}
-        duration={0.8}
-        strokeWidth={strokeWidth}
-      />
+      <DrawPath d="M3 9C36 3 64 11 98 6c30-4 64 6 99 1" delay={delay} duration={0.8} strokeWidth={strokeWidth} />
     </svg>
   );
 }
@@ -124,11 +119,7 @@ export function DoodleArrow({ className, delay = 0.3 }: { className?: string; de
 export function Sparkle({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={cn("text-brand", className)}>
-      <path
-        d="M12 2c1 6 3 8 9 10-6 2-8 4-9 10-1-6-3-8-9-10 6-2 8-4 9-10Z"
-        fill="currentColor"
-        opacity="0.9"
-      />
+      <path d="M12 2c1 6 3 8 9 10-6 2-8 4-9 10-1-6-3-8-9-10 6-2 8-4 9-10Z" fill="currentColor" opacity="0.9" />
     </svg>
   );
 }
@@ -168,13 +159,7 @@ export function SketchFrame({ className }: { className?: string }) {
 }
 
 /** Hand-drawn dashed connector for the "how it works" steps. */
-export function DashedConnector({
-  className,
-  vertical = false,
-}: {
-  className?: string;
-  vertical?: boolean;
-}) {
+export function DashedConnector({ className, vertical = false }: { className?: string; vertical?: boolean }) {
   return (
     <svg
       viewBox={vertical ? "0 0 24 80" : "0 0 120 24"}
@@ -230,8 +215,7 @@ const stroke = {
 } as const;
 
 type IconProps = { className?: string };
-const box = (className?: string) =>
-  cn("text-brand", className);
+const box = (className?: string) => cn("text-brand", className);
 
 /** Paper plane — "Apply". */
 export function IconApply({ className }: IconProps) {

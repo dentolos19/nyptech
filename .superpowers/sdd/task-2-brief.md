@@ -3,9 +3,11 @@
 Replace the body of `PinnedStartups` with the new two-column layout: a vertical list of all startup names on the left (active one large/bold, others dimmed) and a crossfading image + caption on the right, driven by a discrete active index. Continuous (scrubbed) scaling and interactivity come in Task 3.
 
 **Files:**
+
 - Modify: `src/routes/index.tsx` — the `PinnedStartups` function (~lines 712-813) and the `enhanced` intro copy in `StartupsShowcase` (~lines 891-896).
 
 **Interfaces:**
+
 - Consumes: `STARTUPS`, `SketchFrame`, `pad`, `cn`, `motion`, `useRef`, `useState`, `useEffect` (all already imported).
 - Produces: a rewritten `PinnedStartups` that renders the vertical list and tracks `active` (an integer index 0…`STARTUPS.length-1`). Task 3 extends this same component.
 
@@ -28,10 +30,7 @@ function PinnedStartups() {
     let cancelled = false;
 
     (async () => {
-      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
-        import("gsap"),
-        import("gsap/ScrollTrigger"),
-      ]);
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
       if (cancelled) return;
       gsap.registerPlugin(ScrollTrigger);
       const maxIdx = STARTUPS.length - 1;
@@ -116,9 +115,7 @@ function PinnedStartups() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="text-muted-foreground mt-8 max-w-md text-base leading-relaxed">
-                {current.blurb}
-              </p>
+              <p className="text-muted-foreground mt-8 max-w-md text-base leading-relaxed">{current.blurb}</p>
               <p className="text-brand mt-3 text-sm font-semibold">{current.metric}</p>
             </motion.div>
           </div>
@@ -134,17 +131,21 @@ function PinnedStartups() {
 In `StartupsShowcase`, replace the enhanced branch of the intro paragraph:
 
 ```tsx
-            {enhanced
-              ? "Keep scrolling — each startup expands into view, one after another."
-              : "A few of the startups that came out of the program — every one started as a student with an idea."}
+{
+  enhanced
+    ? "Keep scrolling — each startup expands into view, one after another."
+    : "A few of the startups that came out of the program — every one started as a student with an idea.";
+}
 ```
 
 with:
 
 ```tsx
-            {enhanced
-              ? "Scroll through them — each name grows as its story takes the stage on the right."
-              : "A few of the startups that came out of the program — every one started as a student with an idea."}
+{
+  enhanced
+    ? "Scroll through them — each name grows as its story takes the stage on the right."
+    : "A few of the startups that came out of the program — every one started as a student with an idea.";
+}
 ```
 
 - [ ] **Step 3: Lint**
@@ -166,6 +167,7 @@ Expected: build succeeds.
 
 Run: `bun run dev`, open `http://localhost:3000` in a desktop-width window (≥768px).
 Expected:
+
 - The showcase shows **all 6 startup names stacked vertically** on the left; the right shows one framed image with a caption (blurb) + blue metric line below.
 - The first name ("Startup One") is large/bold/dark; the rest are smaller and dimmed.
 - Scrolling down **pins** the panel; as you scroll, the **active name jumps** down the list (Startup One → Two → …), and the right image + caption + index (`01 → 02 …`) and category update to match.
@@ -184,4 +186,3 @@ git commit -m "Rebuild startups showcase as a vertical list with image crossfade
 ```
 
 ---
-

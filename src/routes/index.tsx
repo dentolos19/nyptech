@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode, RefObject } from "react";
 
-import { Accordion, AccordionItem } from "#/components/ui/accordion.tsx";
 import {
   DoodleArrow,
   IconRocket,
@@ -16,6 +15,7 @@ import {
   SketchUnderline,
   Sparkle,
 } from "#/components/sketch.tsx";
+import { Accordion, AccordionItem } from "#/components/ui/accordion.tsx";
 import { cn } from "#/lib/utils.ts";
 
 export const Route = createFileRoute("/")({ component: Home });
@@ -67,8 +67,7 @@ const STORIES = [
     role: "Co-founder, Startup Two · Cohort [N]",
   },
   {
-    quote:
-      "[Placeholder testimonial — a founder reflects on Demo Day and the network they walked away with.]",
+    quote: "[Placeholder testimonial — a founder reflects on Demo Day and the network they walked away with.]",
     name: "[Founder Name]",
     role: "Founder, Startup Three · Cohort [N]",
   },
@@ -113,7 +112,8 @@ const STARTUPS = [
   {
     name: "$100K+",
     category: "Combined valuation",
-    blurb: "A growing portfolio of student-built companies creating real value across software, AI, commerce, and community.",
+    blurb:
+      "A growing portfolio of student-built companies creating real value across software, AI, commerce, and community.",
     metric: "combined valuation",
     isMilestone: true,
   },
@@ -212,9 +212,7 @@ function CtaLink({
       className={cn(CTA_BASE, CTA_VARIANTS[variant], className)}
     >
       {children}
-      {arrow && (
-        <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-      )}
+      {arrow && <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />}
     </a>
   );
 }
@@ -240,10 +238,7 @@ function useGsapSectionAnimations(sectionRef: RefObject<HTMLElement | null>) {
     const cleanups: (() => void)[] = [];
 
     (async () => {
-      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
-        import("gsap"),
-        import("gsap/ScrollTrigger"),
-      ]);
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
       if (cancelled) return;
 
       gsap.registerPlugin(ScrollTrigger);
@@ -336,15 +331,7 @@ function useGsapSectionAnimations(sectionRef: RefObject<HTMLElement | null>) {
   }, [reduced, sectionRef]);
 }
 
-function SectionShell({
-  id,
-  children,
-  className,
-}: {
-  id?: string;
-  children: ReactNode;
-  className?: string;
-}) {
+function SectionShell({ id, children, className }: { id?: string; children: ReactNode; className?: string }) {
   const sectionRef = useRef<HTMLElement>(null);
   useGsapSectionAnimations(sectionRef);
 
@@ -372,7 +359,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
         onMouseLeave={() => setActive(false)}
         onFocus={() => setActive(true)}
         onBlur={() => setActive(false)}
-        className="relative text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:outline-none"
+        className="text-muted-foreground hover:text-foreground focus-visible:text-foreground relative text-sm font-medium transition-colors focus-visible:outline-none"
       >
         {label}
       </a>
@@ -381,7 +368,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
         preserveAspectRatio="none"
         fill="none"
         aria-hidden="true"
-        className="text-brand pointer-events-none absolute -top-2 -bottom-2 -left-3.5 -right-3.5"
+        className="text-brand pointer-events-none absolute -top-2 -right-3.5 -bottom-2 -left-3.5"
       >
         <motion.path
           d="M128 7c-40-6-92-2-112 18-18 18-6 41 30 51 39 11 110 9 150-9 30-14 26-40-8-54-20-8-46-11-70-11"
@@ -412,9 +399,7 @@ function Navbar() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 border-b transition-all duration-300",
-        scrolled
-          ? "border-border/70 bg-white/80 shadow-sm backdrop-blur-md"
-          : "border-transparent bg-transparent",
+        scrolled ? "border-border/70 bg-white/80 shadow-sm backdrop-blur-md" : "border-transparent bg-transparent",
       )}
     >
       <nav
@@ -425,9 +410,7 @@ function Navbar() {
       >
         <a href="#top" className="flex items-center gap-2.5">
           <img src="/assets/logo.png" alt="" className="size-8 rounded-full" />
-          <span className="text-[15px] font-semibold tracking-tight text-foreground">
-            NYP Tech
-          </span>
+          <span className="text-foreground text-[15px] font-semibold tracking-tight">NYP Tech</span>
         </a>
 
         <div className="hidden items-center gap-7 md:flex">
@@ -602,10 +585,7 @@ function Hero() {
   });
 
   return (
-    <section
-      id="top"
-      className="relative overflow-hidden bg-white px-6 pt-32 pb-20 md:pt-40 md:pb-28"
-    >
+    <section id="top" className="relative overflow-hidden bg-white px-6 pt-32 pb-20 md:pt-40 md:pb-28">
       {/* atmosphere — soft blue glow + faint dot grid on white */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -616,7 +596,7 @@ function Hero() {
       />
       <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-36 bg-gradient-to-b from-transparent via-white/75 to-white" />
       <div
-        className="pointer-events-none absolute inset-0 text-brand opacity-[0.06]"
+        className="text-brand pointer-events-none absolute inset-0 opacity-[0.06]"
         style={{
           backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
           backgroundSize: "26px 26px",
@@ -635,12 +615,12 @@ function Hero() {
 
         <motion.h1
           {...rise(0.08)}
-          className="text-[2.6rem] leading-[1.05] font-bold tracking-tight text-foreground sm:text-6xl md:text-7xl"
+          className="text-foreground text-[2.6rem] leading-[1.05] font-bold tracking-tight sm:text-6xl md:text-7xl"
         >
           Build the company
           <br />
           you keep{" "}
-          <span className="relative inline-block whitespace-nowrap text-brand">
+          <span className="text-brand relative inline-block whitespace-nowrap">
             talking about.
             <SketchUnderline className="absolute -bottom-2 left-0 h-3 w-full" />
           </span>
@@ -650,8 +630,8 @@ function Hero() {
           {...rise(0.18)}
           className="text-muted-foreground mx-auto mt-8 max-w-2xl text-lg leading-relaxed md:text-xl"
         >
-          NYP's student incubator. We give you funding, mentors, and a room full of builders
-          for [6] months — so the idea you've been sitting on finally ships.
+          NYP's student incubator. We give you funding, mentors, and a room full of builders for [6] months — so the
+          idea you've been sitting on finally ships.
         </motion.p>
 
         <motion.div {...rise(0.28)} className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -675,12 +655,12 @@ function Hero() {
 
 function TrustBand() {
   return (
-    <section className="border-b border-border bg-gradient-to-b from-white via-white to-muted/25 px-6 py-12">
+    <section className="border-border to-muted/25 border-b bg-gradient-to-b from-white via-white px-6 py-12">
       <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 md:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 0.08} className="text-center">
-            <p className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">{s.value}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
+            <p className="text-foreground text-3xl font-bold tracking-tight md:text-4xl">{s.value}</p>
+            <p className="text-muted-foreground mt-1 text-sm">{s.label}</p>
           </Reveal>
         ))}
       </div>
@@ -694,17 +674,11 @@ function GrowthSketch() {
   const reduced = useReducedMotion();
   return (
     <div className="relative">
-      <div className="relative overflow-hidden rounded-2xl border border-border bg-brand-soft/60 p-8">
+      <div className="border-border bg-brand-soft/60 relative overflow-hidden rounded-2xl border p-8">
         <SketchFrame className="pointer-events-none absolute inset-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)]" />
-        <svg viewBox="0 0 340 260" className="relative w-full text-brand" fill="none" aria-hidden="true">
+        <svg viewBox="0 0 340 260" className="text-brand relative w-full" fill="none" aria-hidden="true">
           {/* axes */}
-          <path
-            d="M40 20v200h270"
-            stroke="currentColor"
-            strokeOpacity="0.35"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-          />
+          <path d="M40 20v200h270" stroke="currentColor" strokeOpacity="0.35" strokeWidth="2.5" strokeLinecap="round" />
           {/* rising hand-drawn curve */}
           <motion.path
             d="M44 206c40 6 70-8 104-44 30-32 52-86 96-118"
@@ -717,14 +691,20 @@ function GrowthSketch() {
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           />
-          <path d="M244 44l-2-22m2 22l20-6" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M244 44l-2-22m2 22l20-6"
+            stroke="currentColor"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
-        <IconRocket className="absolute top-12 right-16 size-8 text-brand" />
-        <Sparkle className="absolute bottom-16 left-20 size-4 text-brand/50" />
-        <div className="absolute bottom-12 left-20 max-w-28 font-serif text-sm leading-none text-muted-foreground">
+        <IconRocket className="text-brand absolute top-12 right-16 size-8" />
+        <Sparkle className="text-brand/50 absolute bottom-16 left-20 size-4" />
+        <div className="text-muted-foreground absolute bottom-12 left-20 max-w-28 font-serif text-sm leading-none">
           you are here
         </div>
-        <div className="absolute top-18 right-24 max-w-28 text-right font-serif text-sm leading-none font-medium text-brand">
+        <div className="text-brand absolute top-18 right-24 max-w-28 text-right font-serif text-sm leading-none font-medium">
           Demo Day
         </div>
       </div>
@@ -738,7 +718,10 @@ function ProgramOverview() {
       <div className="grid items-center gap-14 md:grid-cols-2">
         <Reveal>
           <Eyebrow>The program</Eyebrow>
-          <h2 data-gsap-heading className="mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight text-foreground md:text-5xl">
+          <h2
+            data-gsap-heading
+            className="text-foreground mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight md:text-5xl"
+          >
             So, what is it,
             <br />
             <span className="relative inline-block">
@@ -746,18 +729,18 @@ function ProgramOverview() {
               <SketchCircle className="absolute -inset-x-4 -inset-y-3 h-[calc(100%+1.5rem)] w-[calc(100%+2rem)]" />
             </span>
           </h2>
-          <div data-gsap-item className="mt-7 space-y-5 text-[15px] leading-relaxed text-muted-foreground">
+          <div data-gsap-item className="text-muted-foreground mt-7 space-y-5 text-[15px] leading-relaxed">
             <p>
-              The NYP Tech Incubator is for students who want to build real companies — not class
-              projects. Every [semester] we take a small cohort of teams and spend [6] months
-              turning rough ideas into products with actual users.
+              The NYP Tech Incubator is for students who want to build real companies — not class projects. Every
+              [semester] we take a small cohort of teams and spend [6] months turning rough ideas into products with
+              actual users.
             </p>
             <p>
-              You get funding to build, weekly mentorship from founders and operators, a workspace
-              on campus, and a network that doesn't expire the day you graduate. It all ends with
-              Demo Day: you, on stage, in front of investors and industry partners.
+              You get funding to build, weekly mentorship from founders and operators, a workspace on campus, and a
+              network that doesn't expire the day you graduate. It all ends with Demo Day: you, on stage, in front of
+              investors and industry partners.
             </p>
-            <p className="font-medium text-foreground">
+            <p className="text-foreground font-medium">
               Most of all, it's a room full of people who are as serious about building as you are.
             </p>
           </div>
@@ -765,7 +748,7 @@ function ProgramOverview() {
 
         <Reveal delay={0.15}>
           <div data-gsap-item data-gsap-float data-gsap-tilt>
-          <GrowthSketch />
+            <GrowthSketch />
           </div>
         </Reveal>
       </div>
@@ -783,48 +766,49 @@ function WhoShouldApply() {
     <SectionShell id="who">
       <Reveal className="max-w-2xl">
         <Eyebrow>Who it's for</Eyebrow>
-        <h2 data-gsap-heading className="mt-5 text-4xl leading-tight font-bold tracking-tight text-foreground md:text-5xl">
+        <h2
+          data-gsap-heading
+          className="text-foreground mt-5 text-4xl leading-tight font-bold tracking-tight md:text-5xl"
+        >
           You don't have to be a <span className="font-serif italic">“startup person.”</span>
         </h2>
-        <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-          You just need an idea you can't stop thinking about — and the will to build it.
-          The rest, we'll figure out together.
+        <p className="text-muted-foreground mt-5 text-lg leading-relaxed">
+          You just need an idea you can't stop thinking about — and the will to build it. The rest, we'll figure out
+          together.
         </p>
       </Reveal>
 
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {PERSONAS.map((p, i) => (
           <Reveal key={p.tag} delay={(i % 4) * 0.07}>
-            <div data-gsap-item data-gsap-tilt className="h-full rounded-2xl border border-border bg-white p-6">
-              <span className="font-serif text-lg font-medium text-brand">{p.tag}</span>
-              <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{p.body}</p>
+            <div data-gsap-item data-gsap-tilt className="border-border h-full rounded-2xl border bg-white p-6">
+              <span className="text-brand font-serif text-lg font-medium">{p.tag}</span>
+              <p className="text-muted-foreground mt-3 text-[15px] leading-relaxed">{p.body}</p>
             </div>
           </Reveal>
         ))}
       </div>
 
       <Reveal delay={0.1}>
-        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
+        <div className="border-border bg-border mt-10 grid gap-px overflow-hidden rounded-2xl border sm:grid-cols-2">
           <div data-gsap-item className="bg-white p-8">
-            <p className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
-              You don't need
-            </p>
+            <p className="text-muted-foreground text-sm font-semibold tracking-wide uppercase">You don't need</p>
             <ul className="mt-5 space-y-3.5">
               {dont.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-[15px] text-muted-foreground">
-                  <span className="grid size-5 shrink-0 place-items-center rounded-full bg-muted">
-                    <X className="size-3 text-muted-foreground" />
+                <li key={item} className="text-muted-foreground flex items-center gap-3 text-[15px]">
+                  <span className="bg-muted grid size-5 shrink-0 place-items-center rounded-full">
+                    <X className="text-muted-foreground size-3" />
                   </span>
-                  <span className="line-through decoration-muted-foreground/40">{item}</span>
+                  <span className="decoration-muted-foreground/40 line-through">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
           <div data-gsap-item className="bg-white p-8">
-            <p className="text-sm font-semibold tracking-wide text-brand uppercase">You just need</p>
+            <p className="text-brand text-sm font-semibold tracking-wide uppercase">You just need</p>
             <ul className="mt-5 space-y-3.5">
               {need.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-[15px] font-medium text-foreground">
+                <li key={item} className="text-foreground flex items-center gap-3 text-[15px] font-medium">
                   <SketchCheck className="size-5 shrink-0" />
                   {item}
                 </li>
@@ -844,7 +828,10 @@ function SuccessStories() {
     <SectionShell id="stories">
       <Reveal className="max-w-2xl">
         <Eyebrow>Success stories</Eyebrow>
-        <h2 data-gsap-heading className="mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight text-foreground md:text-5xl">
+        <h2
+          data-gsap-heading
+          className="text-foreground mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight md:text-5xl"
+        >
           Built by students who started right where you are.
         </h2>
       </Reveal>
@@ -852,19 +839,21 @@ function SuccessStories() {
       <div className="mt-14 grid gap-5 md:grid-cols-3">
         {STORIES.map((s, i) => (
           <Reveal key={i} delay={i * 0.1}>
-            <figure data-gsap-item data-gsap-tilt className="relative flex h-full flex-col rounded-2xl border border-border bg-white p-7">
+            <figure
+              data-gsap-item
+              data-gsap-tilt
+              className="border-border relative flex h-full flex-col rounded-2xl border bg-white p-7"
+            >
               <QuoteMark className="h-8 w-10" />
-              <blockquote className="mt-4 flex-1 text-[15px] leading-relaxed text-foreground">
-                {s.quote}
-              </blockquote>
-              <figcaption className="mt-6 border-t border-border pt-5">
+              <blockquote className="text-foreground mt-4 flex-1 text-[15px] leading-relaxed">{s.quote}</blockquote>
+              <figcaption className="border-border mt-6 border-t pt-5">
                 <div className="flex items-center gap-3">
-                  <span className="grid size-10 place-items-center rounded-full bg-brand-soft font-serif text-base font-medium text-brand">
+                  <span className="bg-brand-soft text-brand grid size-10 place-items-center rounded-full font-serif text-base font-medium">
                     {s.name.replace(/[^A-Za-z]/g, "").charAt(0) || "F"}
                   </span>
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{s.name}</p>
-                    <p className="text-xs text-muted-foreground">{s.role}</p>
+                    <p className="text-foreground text-sm font-semibold">{s.name}</p>
+                    <p className="text-muted-foreground text-xs">{s.role}</p>
                   </div>
                 </div>
               </figcaption>
@@ -947,10 +936,7 @@ function PinnedStartups() {
     let cancelled = false;
 
     (async () => {
-      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
-        import("gsap"),
-        import("gsap/ScrollTrigger"),
-      ]);
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
       if (cancelled) return;
       gsap.registerPlugin(ScrollTrigger);
 
@@ -1030,7 +1016,7 @@ function PinnedStartups() {
                     onClick={() => jumpTo(i)}
                     aria-current={i === active ? "true" : undefined}
                     style={{ transformOrigin: "left center" }}
-                    className={`block cursor-pointer font-sans text-4xl leading-none tracking-[-0.045em] transition-colors duration-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand md:text-5xl lg:text-[3.6rem] ${
+                    className={`focus-visible:outline-brand block cursor-pointer font-sans text-4xl leading-none tracking-[-0.045em] transition-colors duration-500 focus-visible:outline-2 focus-visible:outline-offset-4 md:text-5xl lg:text-[3.6rem] ${
                       i === active ? "text-foreground font-semibold" : "text-foreground/12 font-medium"
                     }`}
                   >
@@ -1057,7 +1043,7 @@ function PinnedStartups() {
                           initial={{ scaleX: 0, opacity: 0 }}
                           animate={{ scaleX: 1, opacity: 1 }}
                           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                          className="absolute right-0 -bottom-1 left-0 h-3 origin-left text-brand"
+                          className="text-brand absolute right-0 -bottom-1 left-0 h-3 origin-left"
                         >
                           <SketchUnderline className="h-full w-full" />
                         </motion.span>
@@ -1079,7 +1065,9 @@ function PinnedStartups() {
                   : "aspect-square rounded-[2.25rem] border border-white/80 bg-white p-2 shadow-[0_30px_90px_rgba(15,23,42,0.12)] ring-1 ring-black/5",
               )}
             >
-              {!current.isMilestone && <div className="absolute inset-0 bg-gradient-to-br from-white/70 via-transparent to-brand/5" />}
+              {!current.isMilestone && (
+                <div className="to-brand/5 absolute inset-0 bg-gradient-to-br from-white/70 via-transparent" />
+              )}
               <div
                 className={cn(
                   "relative h-full w-full overflow-hidden",
@@ -1136,9 +1124,7 @@ function PinnedStartups() {
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="mx-auto max-w-xl"
             >
-              <p className="text-muted-foreground mt-7 text-[15px] leading-relaxed md:text-base">
-                {current.blurb}
-              </p>
+              <p className="text-muted-foreground mt-7 text-[15px] leading-relaxed md:text-base">{current.blurb}</p>
               <p className="text-foreground mt-3 text-sm font-medium">{current.metric}</p>
             </motion.div>
           </div>
@@ -1190,7 +1176,6 @@ function StartupsShowcase() {
   return (
     <section id="startups" className="bg-muted/30 py-24 md:py-28">
       {enhanced ? <PinnedStartups /> : <StackedStartups />}
-
     </section>
   );
 }
@@ -1203,26 +1188,29 @@ function Faq() {
       <div className="grid gap-12 md:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
           <Eyebrow>Questions</Eyebrow>
-          <h2 data-gsap-heading className="mt-5 text-4xl leading-tight font-bold tracking-tight text-foreground md:text-5xl">
+          <h2
+            data-gsap-heading
+            className="text-foreground mt-5 text-4xl leading-tight font-bold tracking-tight md:text-5xl"
+          >
             Good questions.
           </h2>
-          <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground">
+          <p className="text-muted-foreground mt-5 text-[15px] leading-relaxed">
             Still unsure about something? Reach out — we'd rather you ask than not apply.
           </p>
           <div data-gsap-float>
-            <DoodleArrow className="mt-8 hidden size-20 -scale-x-100 text-brand/40 md:block" />
+            <DoodleArrow className="text-brand/40 mt-8 hidden size-20 -scale-x-100 md:block" />
           </div>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div data-gsap-item>
-          <Accordion>
-            {FAQS.map((f, i) => (
-              <AccordionItem key={i} value={`faq-${i}`} question={f.q}>
-                {f.a}
-              </AccordionItem>
-            ))}
-          </Accordion>
+            <Accordion>
+              {FAQS.map((f, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} question={f.q}>
+                  {f.a}
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </Reveal>
       </div>
@@ -1238,7 +1226,11 @@ function FinalCta() {
 
   return (
     <section ref={sectionRef} id="apply" className="px-6 py-20">
-      <div data-gsap-item data-gsap-tilt className="border-brand/15 bg-brand-soft/50 relative mx-auto max-w-6xl overflow-hidden rounded-3xl border px-6 py-20 text-center md:py-28">
+      <div
+        data-gsap-item
+        data-gsap-tilt
+        className="border-brand/15 bg-brand-soft/50 relative mx-auto max-w-6xl overflow-hidden rounded-3xl border px-6 py-20 text-center md:py-28"
+      >
         <div
           className="text-brand pointer-events-none absolute inset-0 opacity-[0.06]"
           style={{
@@ -1250,7 +1242,10 @@ function FinalCta() {
         <Sparkle className="text-brand/25 absolute right-[18%] bottom-16 size-5" />
 
         <Reveal className="relative mx-auto max-w-2xl">
-          <h2 data-gsap-heading className="text-foreground font-serif text-5xl leading-[1.05] font-medium tracking-tight md:text-6xl">
+          <h2
+            data-gsap-heading
+            className="text-foreground font-serif text-5xl leading-[1.05] font-medium tracking-tight md:text-6xl"
+          >
             It's never too early
             <br />
             to{" "}
@@ -1260,8 +1255,7 @@ function FinalCta() {
             </span>
           </h2>
           <p className="text-muted-foreground mx-auto mt-7 max-w-xl text-lg leading-relaxed">
-            The worst thing you can do with an idea is wait. Applications for Cohort [X] close
-            [Month DD, Year].
+            The worst thing you can do with an idea is wait. Applications for Cohort [X] close [Month DD, Year].
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <CtaLink href={APPLY_URL} external variant="primary" arrow>
@@ -1284,41 +1278,36 @@ function FinalCta() {
 
 function Footer() {
   return (
-    <footer className="border-t border-border bg-white px-6 py-14">
+    <footer className="border-border border-t bg-white px-6 py-14">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
             <div className="flex items-center gap-2.5">
               <img src="/assets/logo.png" alt="" className="size-8 rounded-full" />
-              <span className="text-[15px] font-semibold tracking-tight text-foreground">
+              <span className="text-foreground text-[15px] font-semibold tracking-tight">
                 NYP Technopreneurship Club
               </span>
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              The student incubator at Nanyang Polytechnic. We help students turn ideas into
-              companies.
+            <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
+              The student incubator at Nanyang Polytechnic. We help students turn ideas into companies.
             </p>
           </div>
 
           <div className="flex flex-col gap-6 sm:flex-row sm:gap-16">
             <nav className="flex flex-col gap-3">
-              <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                Explore
-              </p>
+              <p className="text-muted-foreground text-xs font-semibold tracking-[0.16em] uppercase">Explore</p>
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="text-muted-foreground hover:text-foreground text-sm transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
             </nav>
             <div className="flex flex-col gap-3">
-              <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                Get started
-              </p>
+              <p className="text-muted-foreground text-xs font-semibold tracking-[0.16em] uppercase">Get started</p>
               <CtaLink href={APPLY_URL} external variant="primary" arrow className="w-fit px-4 py-2 text-[13px]">
                 Apply now
               </CtaLink>
@@ -1328,7 +1317,7 @@ function Footer() {
                     key={s.name}
                     href={s.href}
                     aria-label={s.name}
-                    className="grid size-9 place-items-center rounded-full border border-border transition-colors hover:border-brand/40 hover:bg-brand-soft"
+                    className="border-border hover:border-brand/40 hover:bg-brand-soft grid size-9 place-items-center rounded-full border transition-colors"
                   >
                     <img src={s.icon} alt="" className="size-4 opacity-50" />
                   </a>
@@ -1338,7 +1327,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <div className="border-border text-muted-foreground mt-12 flex flex-col gap-3 border-t pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; 2026 NYP Technopreneurship Club. All rights reserved.</p>
           <p>Built by students, for students.</p>
         </div>
@@ -1351,7 +1340,7 @@ function Footer() {
 
 function Home() {
   return (
-    <div className="min-h-screen bg-white text-foreground">
+    <div className="text-foreground min-h-screen bg-white">
       <Navbar />
       <main>
         <Hero />

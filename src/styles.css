@@ -141,7 +141,9 @@
   /* Fraunces tuned for friendly, editorial display use */
   .font-serif {
     font-optical-sizing: auto;
-    font-variation-settings: "SOFT" 40, "WONK" 1;
+    font-variation-settings:
+      "SOFT" 40,
+      "WONK" 1;
   }
 }
 

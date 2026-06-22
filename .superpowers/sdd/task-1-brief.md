@@ -1,9 +1,11 @@
 ### Task 1: Move the showcase below the hero
 
 **Files:**
+
 - Modify: `src/routes/index.tsx` (the `Home` component, ~lines 1055-1074)
 
 **Interfaces:**
+
 - Consumes: existing `<StartupsShowcase />`, `<TrustBand />`.
 - Produces: nothing new — pure reorder.
 
@@ -12,35 +14,35 @@
 Edit the `Home` component's `<main>` so the showcase sits right after the trust band. Replace the existing `<main>` block:
 
 ```tsx
-      <main>
-        <Hero />
-        <TrustBand />
-        <ProgramOverview />
-        <Benefits />
-        <WhoShouldApply />
-        <HowItWorks />
-        <StartupsShowcase />
-        <SuccessStories />
-        <Faq />
-        <FinalCta />
-      </main>
+<main>
+  <Hero />
+  <TrustBand />
+  <ProgramOverview />
+  <Benefits />
+  <WhoShouldApply />
+  <HowItWorks />
+  <StartupsShowcase />
+  <SuccessStories />
+  <Faq />
+  <FinalCta />
+</main>
 ```
 
 with:
 
 ```tsx
-      <main>
-        <Hero />
-        <TrustBand />
-        <StartupsShowcase />
-        <ProgramOverview />
-        <Benefits />
-        <WhoShouldApply />
-        <HowItWorks />
-        <SuccessStories />
-        <Faq />
-        <FinalCta />
-      </main>
+<main>
+  <Hero />
+  <TrustBand />
+  <StartupsShowcase />
+  <ProgramOverview />
+  <Benefits />
+  <WhoShouldApply />
+  <HowItWorks />
+  <SuccessStories />
+  <Faq />
+  <FinalCta />
+</main>
 ```
 
 (`StartupsShowcase` keeps its `id="startups"`, so the `#startups` nav link still works.)
@@ -73,4 +75,3 @@ git commit -m "Move startups showcase below the hero"
 ```
 
 ---
-

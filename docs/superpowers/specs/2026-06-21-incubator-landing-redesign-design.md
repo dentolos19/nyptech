@@ -20,7 +20,7 @@ Redesign the NYP Technopreneurship Club landing page so its single, focused job 
 
 The page reads confident and trustworthy (YC), while feeling youthful, approachable, and
 founder-focused through tasteful hand-drawn sketch accents (Sequoia). The structure stays
-minimal and uncluttered — sketches are *accents*, never clutter.
+minimal and uncluttered — sketches are _accents_, never clutter.
 
 ## 3. Visual system
 
@@ -41,19 +41,19 @@ minimal and uncluttered — sketches are *accents*, never clutter.
 
 ## 4. Page structure (single page, anchor navigation)
 
-| # | Section | Purpose | Notes |
-|---|---------|---------|-------|
-| 1 | **Navbar** | Persistent CTA | Fixed, white/blur. Logo, anchor links (Program · Benefits · How it works · FAQ), blue **Apply** button. |
-| 2 | **Hero** | Hook + primary CTA | Solid-blue block. Big headline w/ hand-drawn squiggle under one word, subhead, `Apply now →` + "How it works", "Applications open — Cohort [X]" badge, subtle doodles. |
-| 3 | **Trust band** | Social proof | `[X]+ startups · [Y]+ students · [Z] cohorts`, hand-drawn separators. |
-| 4 | **Program overview** | *What it is* | Storytelling 2-column + sketch illustration. Serif headline. |
-| 5 | **Benefits** | *Why join* | Card grid: funding, mentorship, network, workspace, Demo Day, lifelong community. Each w/ sketch icon. |
-| 6 | **Who should apply** | *Who it's for* | Personas + reassurance ("you don't need a finished idea"). Sketch checkmarks. |
-| 7 | **How it works** | *How to apply* | Steps: Apply → Interview → Build (6 mo) → Demo Day → Alumni. Hand-drawn numbered steps + dashed connectors. |
-| 8 | **Success stories** | Proof / aspiration | Placeholder startups + founder quotes in sketch-framed cards. |
-| 9 | **FAQ** | Remove objections | Accordion: eligibility, cost/equity, time commitment, deadlines, idea readiness. |
-| 10 | **Final CTA** | Conversion | Second solid-blue block. "It's never too early to apply," big Apply button, deadline placeholder. |
-| 11 | **Footer** | Wrap-up | Logo, socials, copyright. |
+| #   | Section              | Purpose            | Notes                                                                                                                                                                  |
+| --- | -------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Navbar**           | Persistent CTA     | Fixed, white/blur. Logo, anchor links (Program · Benefits · How it works · FAQ), blue **Apply** button.                                                                |
+| 2   | **Hero**             | Hook + primary CTA | Solid-blue block. Big headline w/ hand-drawn squiggle under one word, subhead, `Apply now →` + "How it works", "Applications open — Cohort [X]" badge, subtle doodles. |
+| 3   | **Trust band**       | Social proof       | `[X]+ startups · [Y]+ students · [Z] cohorts`, hand-drawn separators.                                                                                                  |
+| 4   | **Program overview** | _What it is_       | Storytelling 2-column + sketch illustration. Serif headline.                                                                                                           |
+| 5   | **Benefits**         | _Why join_         | Card grid: funding, mentorship, network, workspace, Demo Day, lifelong community. Each w/ sketch icon.                                                                 |
+| 6   | **Who should apply** | _Who it's for_     | Personas + reassurance ("you don't need a finished idea"). Sketch checkmarks.                                                                                          |
+| 7   | **How it works**     | _How to apply_     | Steps: Apply → Interview → Build (6 mo) → Demo Day → Alumni. Hand-drawn numbered steps + dashed connectors.                                                            |
+| 8   | **Success stories**  | Proof / aspiration | Placeholder startups + founder quotes in sketch-framed cards.                                                                                                          |
+| 9   | **FAQ**              | Remove objections  | Accordion: eligibility, cost/equity, time commitment, deadlines, idea readiness.                                                                                       |
+| 10  | **Final CTA**        | Conversion         | Second solid-blue block. "It's never too early to apply," big Apply button, deadline placeholder.                                                                      |
+| 11  | **Footer**           | Wrap-up            | Logo, socials, copyright.                                                                                                                                              |
 
 ## 5. Behavior
 
@@ -97,11 +97,11 @@ minimal and uncluttered — sketches are *accents*, never clutter.
 
 ## 9. Decisions log
 
-| Decision | Choice |
-|----------|--------|
-| Sign-up flow | External form link via `APPLY_URL` placeholder, new tab |
-| Visual direction | YC-faithful structure + blue |
-| Sequoia influence | Hand-drawn sketch storytelling, **balanced** accent level |
-| Content | All fresh placeholder copy (marked) + real structural copy |
-| Serif accent | Add Fraunces via `@fontsource` for storytelling headlines/quotes |
-| Color mode | Light only |
+| Decision          | Choice                                                           |
+| ----------------- | ---------------------------------------------------------------- |
+| Sign-up flow      | External form link via `APPLY_URL` placeholder, new tab          |
+| Visual direction  | YC-faithful structure + blue                                     |
+| Sequoia influence | Hand-drawn sketch storytelling, **balanced** accent level        |
+| Content           | All fresh placeholder copy (marked) + real structural copy       |
+| Serif accent      | Add Fraunces via `@fontsource` for storytelling headlines/quotes |
+| Color mode        | Light only                                                       |

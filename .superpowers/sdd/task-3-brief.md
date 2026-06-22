@@ -3,9 +3,11 @@
 Make the active name grow **smoothly** as the user scrolls toward it (continuous interpolation, not a snap), make each name a focusable button that jumps to its startup on click, and mark the active one with `aria-current`.
 
 **Files:**
+
 - Modify: `src/routes/index.tsx` — the `PinnedStartups` function only.
 
 **Interfaces:**
+
 - Consumes: same imports as Task 2.
 - Produces: final `PinnedStartups`. No new exports.
 
@@ -32,10 +34,7 @@ function PinnedStartups() {
     let cancelled = false;
 
     (async () => {
-      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
-        import("gsap"),
-        import("gsap/ScrollTrigger"),
-      ]);
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
       if (cancelled) return;
       gsap.registerPlugin(ScrollTrigger);
 
@@ -155,9 +154,7 @@ function PinnedStartups() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="text-muted-foreground mt-8 max-w-md text-base leading-relaxed">
-                {current.blurb}
-              </p>
+              <p className="text-muted-foreground mt-8 max-w-md text-base leading-relaxed">{current.blurb}</p>
               <p className="text-brand mt-3 text-sm font-semibold">{current.metric}</p>
             </motion.div>
           </div>
@@ -187,6 +184,7 @@ Expected: build succeeds.
 
 Run: `bun run dev`, open `http://localhost:3000` at desktop width, scroll slowly through the showcase.
 Expected:
+
 - As you scroll toward a name it **grows and bolds smoothly** (no snap), while the name you're leaving shrinks and dims. Neighbours are partially emphasised (a gradient of size/opacity), matching the reference.
 - The right image + caption + index/category still track the nearest startup.
 - No visible overlap between names. (If names overlap at some width, increase the list `gap-3` → `gap-4`/`gap-5` or lower the max scale `0.42` multiplier — note this in the commit.)
@@ -194,6 +192,7 @@ Expected:
 - [ ] **Step 6: Manual check — click + keyboard**
 
 Expected:
+
 - **Clicking** any name smoothly scrolls the page so that startup becomes active (image/caption follow).
 - **Tab** moves focus through the names with a visible focus ring; **Enter/Space** on a focused name jumps to it.
 - The active name carries `aria-current="true"` (verify in DevTools elements panel).
@@ -215,6 +214,7 @@ git commit -m "Add smooth scrubbed scaling, click-to-jump, and a11y to startups 
 ## Self-Review
 
 **1. Spec coverage:**
+
 - Vertical list of all names on the left → Task 2 (layout) + Task 3 (it's the list).
 - Active name larger/bolder/more prominent on scroll → Task 2 (discrete) → Task 3 (continuous/smooth). ✓
 - Right image changes dynamically + caption → Task 2 (crossfade `motion.img` + blurb/metric caption). ✓

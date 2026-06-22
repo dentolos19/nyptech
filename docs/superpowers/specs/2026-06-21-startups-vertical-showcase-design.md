@@ -76,6 +76,7 @@ The existing `StartupsMarquee` (infinite scrolling name pills) is retained below
   so the name that's being scrolled toward **grows smoothly** rather than popping. Implementation:
   per-item GSAP tweens linked to the trigger timeline, or a single `onUpdate` that writes interpolated
   styles to each item via refs. Either is acceptable as long as the scaling reads as continuous.
+
 - The **active integer index** (rounded from progress) is held in React state and drives the right-side
   image crossfade + caption. Image transition uses the existing `motion`/Framer crossfade
   (opacity + slight scale), keyed on the active index.
@@ -91,11 +92,11 @@ The existing `StartupsMarquee` (infinite scrolling name pills) is retained below
 
 ## 5. Active-state styling tokens
 
-| State | opacity | scale | color | weight |
-|-------|---------|-------|-------|--------|
-| Active | 1 | 1 | `text-foreground` | bold |
-| Adjacent | ~0.6 | ~0.96 | `text-muted-foreground` | normal |
-| Far | 0.35 | 0.92 | `text-muted-foreground/40` | light |
+| State    | opacity | scale | color                      | weight |
+| -------- | ------- | ----- | -------------------------- | ------ |
+| Active   | 1       | 1     | `text-foreground`          | bold   |
+| Adjacent | ~0.6    | ~0.96 | `text-muted-foreground`    | normal |
+| Far      | 0.35    | 0.92  | `text-muted-foreground/40` | light  |
 
 Adjacent values are produced naturally by the continuous interpolation; the table documents the
 endpoints. Names use the Fraunces serif (`font-serif`) for the editorial feel, consistent with other
@@ -130,12 +131,12 @@ storytelling headlines on the page.
 
 ## 9. Decisions log
 
-| Decision | Choice |
-|----------|--------|
-| Existing showcase | Redesign in place into the vertical-list style, move below the hero/trust band |
-| Content | Reuse the existing 6 placeholder startups + images |
+| Decision          | Choice                                                                           |
+| ----------------- | -------------------------------------------------------------------------------- |
+| Existing showcase | Redesign in place into the vertical-list style, move below the hero/trust band   |
+| Content           | Reuse the existing 6 placeholder startups + images                               |
 | Interaction model | Approach A — pinned scroll-sequence with continuous (scrubbed) per-item emphasis |
-| Emphasis behavior | Active name grows/bolds/darkens smoothly; others dim |
-| Right side | Crossfading framed image + short caption (blurb) + metric accent |
-| Fallback | Existing `StackedStartups` for mobile + `prefers-reduced-motion` |
-| Accessibility | Names are focusable buttons, click-to-jump, `aria-current` on active |
+| Emphasis behavior | Active name grows/bolds/darkens smoothly; others dim                             |
+| Right side        | Crossfading framed image + short caption (blurb) + metric accent                 |
+| Fallback          | Existing `StackedStartups` for mobile + `prefers-reduced-motion`                 |
+| Accessibility     | Names are focusable buttons, click-to-jump, `aria-current` on active             |
