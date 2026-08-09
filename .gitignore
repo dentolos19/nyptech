@@ -20,6 +20,9 @@ out/
 # Project files
 /src/routeTree.gen.ts
 
+# Local tooling (machine-specific dev runner)
+dev.ps1
+
 # Miscellaneous files
 .DS_Store
 Desktop.ini

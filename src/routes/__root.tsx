@@ -6,7 +6,6 @@ import AppProvider from "#/components/app-provider";
 import ErrorOccurred from "#/components/error-occurred";
 import Loading from "#/components/loading";
 import NotFound from "#/components/not-found";
-import { ScrollArea } from "#/components/ui/scroll-area";
 
 import appCss from "../styles.css?url";
 
@@ -41,9 +40,7 @@ export const Route = createRootRoute({
         <HeadContent />
       </head>
       <body className={"antialiased"}>
-        <AppProvider>
-          <ScrollArea className={"h-dvh w-dvw"}>{children}</ScrollArea>
-        </AppProvider>
+        <AppProvider>{children}</AppProvider>
         <TanStackDevtools
           config={{
             position: "bottom-right",
