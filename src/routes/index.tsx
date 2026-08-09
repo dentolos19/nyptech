@@ -2,12 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, X } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties, ReactNode, RefObject } from "react";
+import type { ReactNode, RefObject } from "react";
 
 import {
   DoodleArrow,
   IconRocket,
-  QuoteMark,
   Reveal,
   SketchCheck,
   SketchCircle,
@@ -20,18 +19,15 @@ import { cn } from "#/lib/utils.ts";
 
 export const Route = createFileRoute("/")({ component: Home });
 
-// ── Config ───────────────────────────────────────────────────────────────────
+// ── Content ──────────────────────────────────────────────────────────────────
 
-// TODO: Replace with the real application form URL (Google Form / Typeform / etc.)
-const APPLY_URL = "https://forms.gle/REPLACE_WITH_REAL_FORM";
-
-// ── Placeholder content (clearly marked — swap before launch) ─────────────────
+const CONTACT_URL = "mailto:nyptechnopreneurs@gmail.com";
 
 const STATS = [
-  { value: "[X]+", label: "startups launched" },
-  { value: "[Y]+", label: "student founders" },
-  { value: "[Z]", label: "cohorts so far" },
-  { value: "$[XX]K+", label: "funding deployed" },
+  { value: "14+", label: "startups launched" },
+  { value: "20+", label: "mentors" },
+  { value: "$30K+", label: "funding support" },
+  { value: "2", label: "flagship events" },
 ];
 
 const PERSONAS = [
@@ -55,112 +51,122 @@ const PERSONAS = [
 
 const STORIES = [
   {
-    quote:
-      "[Placeholder testimonial — a founder describes how the incubator turned their rough idea into a company with real users.]",
-    name: "[Founder Name]",
-    role: "Founder, Startup One · Cohort [N]",
+    startup: "Virage",
+    title: "From final-year project to scam defense.",
+    story:
+      "Inspired by digital-skills work with seniors, the team built realistic AI voice-scam simulations that make cybersecurity training more practical and memorable.",
+    outcome: "AI-powered vishing awareness and training.",
   },
   {
-    quote:
-      "[Placeholder testimonial — a founder talks about the mentorship and community, and what they shipped during the program.]",
-    name: "[Founder Name]",
-    role: "Co-founder, Startup Two · Cohort [N]",
+    startup: "ProcoLink",
+    title: "Turning AI support into a real business.",
+    story:
+      "What began as a final-year project became a registered company. Its flagship product, AIRES, gives teams a human-like AI helpdesk for IT operations.",
+    outcome: "Registered AI company with a flagship helpdesk product.",
   },
   {
-    quote: "[Placeholder testimonial — a founder reflects on Demo Day and the network they walked away with.]",
-    name: "[Founder Name]",
-    role: "Founder, Startup Three · Cohort [N]",
+    startup: "AM Digiparts",
+    title: "Making physical catalogues searchable.",
+    story:
+      "Built around a motorcycle retailer's daily search problem, the team used OCR and analytics to turn printed catalogues into a fast, searchable parts platform.",
+    outcome: "16% productivity gain in its first industry pilot.",
   },
 ];
 
 const STARTUPS = [
   {
-    name: "Startup One",
-    category: "Fintech",
-    blurb: "[One or two sentences on what this startup builds and the problem it solves for its users.]",
-    metric: "[X]+ users",
-    image: "/assets/showcase/shaper.png",
-  },
-  {
-    name: "Startup Two",
-    category: "Marketplace",
-    blurb: "[One or two sentences on what this startup builds and the problem it solves for its users.]",
-    metric: "[X]+ sellers onboarded",
-    image: "/assets/showcase/procolink.png",
-  },
-  {
-    name: "Startup Three",
-    category: "AI",
-    blurb: "[One or two sentences on what this startup builds and the problem it solves for its users.]",
-    metric: "$[X]K in revenue",
-    image: "/assets/showcase/autozone.png",
-  },
-  {
-    name: "Startup Four",
-    category: "EdTech",
-    blurb: "[One or two sentences on what this startup builds and the problem it solves for its users.]",
-    metric: "[X] schools using it",
-    image: "/assets/blog/solvewebsite.png",
-  },
-  {
-    name: "Startup Five",
-    category: "Climate",
-    blurb: "[One or two sentences on what this startup builds and the problem it solves for its users.]",
-    metric: "[X] pilots launched",
-    image: "/assets/blog/workshop.jpeg",
-  },
-  {
-    name: "$100K+",
-    category: "Combined valuation",
+    name: "Virage",
+    category: "Cybersecurity",
     blurb:
-      "A growing portfolio of student-built companies creating real value across software, AI, commerce, and community.",
-    metric: "combined valuation",
+      "An AI-powered vishing simulation platform that helps organizations and communities recognize scam calls through realistic, localized training.",
+    metric: "Build vigilance. Combat vishing.",
+    image: "/assets/startups/virage.png",
+    url: "https://virage.app/",
+  },
+  {
+    name: "ProcoLink",
+    category: "Applied AI",
+    blurb:
+      "A suite of AI tools for customer support and sales. Its AIRES helpdesk supports IT operations and system administration with human-like assistance.",
+    metric: "A registered company built from an NYP final-year project.",
+    image: "/assets/startups/procolink.png",
+    url: "https://proco.link/",
+  },
+  {
+    name: "Bihance",
+    category: "Event Tech",
+    blurb:
+      "An end-to-end event-management platform for organizing event workspaces, schedules, shifts, notifications, and participant activity.",
+    metric: "20+ features for event operations.",
+    image: "/assets/startups/bihance.png",
+    url: "https://bihance.app/",
+  },
+  {
+    name: "Pronto",
+    category: "Future Of Work",
+    blurb:
+      "Singapore's AI-powered job-matching app for flexible shifts, part-time roles, and full-time opportunities across F&B, retail, events, and more.",
+    metric: "A job for every schedule.",
+    image: "/assets/startups/pronto.png",
+    url: "https://pronto.sg/",
+  },
+  {
+    name: "AM Digiparts",
+    category: "Industry AI",
+    blurb:
+      "An OCR and analytics platform that converts printed motorcycle-parts catalogues into searchable data, helping repair teams find parts in seconds.",
+    metric: "16% productivity gain in its first industry pilot.",
+    image: "/assets/startups/amdigiparts.svg",
+  },
+  {
+    name: "Venture Network",
+    category: "Student Ventures",
+    blurb:
+      "Beyond the featured portfolio, NYP students are building ventures across AI, event technology, productivity, digital trade, and community impact.",
+    metric: "A growing network of builders, prototypes, and founders.",
     isMilestone: true,
   },
 ];
 
 const STARTUP_LOGOS = [
+  { name: "AirQueue", src: "/assets/startups/airqueue.svg" },
+  { name: "AkitaVault", src: "/assets/startups/akitavault.svg" },
+  { name: "AM Digiparts", src: "/assets/startups/amdigiparts.svg" },
+  { name: "ArchAIve", src: "/assets/startups/archaive.svg" },
   { name: "Bihance", src: "/assets/startups/bihance.png" },
+  { name: "Camoji", src: "/assets/startups/camoji.svg" },
+  { name: "Initiate", src: "/assets/startups/initiate.svg" },
+  { name: "Keypiece AI", src: "/assets/startups/keypiece.svg" },
+  { name: "NetVet", src: "/assets/startups/netvet.svg" },
+  { name: "OneLLM", src: "/assets/startups/onellm.png" },
   { name: "ProcoLink", src: "/assets/startups/procolink.png" },
   { name: "Virage", src: "/assets/startups/virage.png" },
   { name: "Pronto", src: "/assets/startups/pronto.png" },
+  { name: "Proton", src: "/assets/startups/proton.svg" },
+  { name: "SparkJob", src: "/assets/startups/sparkjob.svg" },
+  { name: "Yyllage", src: "/assets/startups/yyllage.svg" },
 ];
-
-const LOGO_COLLAGE_POSITIONS: Record<string, CSSProperties> = {
-  Bihance: { left: "6%", top: "10%", transform: "rotate(-4deg)" },
-  ProcoLink: { right: "10%", top: "17%", transform: "rotate(3deg)" },
-  Virage: { left: "18%", bottom: "12%", transform: "rotate(3deg)" },
-  Pronto: { right: "4%", bottom: "8%", transform: "rotate(-3deg)" },
-};
 
 const FAQS = [
   {
     q: "Who can apply?",
-    a: "Any current NYP student, from any course or year. Apply solo or with a team of up to [4]. No prior startup experience needed — curiosity counts more than a CV.",
+    a: "NYP Technopreneurship Club is a student community at Nanyang Polytechnic. Its activities are for students exploring entrepreneurship, from first ideas to early ventures.",
   },
   {
     q: "Do I need a fully formed idea?",
-    a: "No. Some teams arrive with a working prototype; others with a rough hunch and a lot of energy. If you can point at a problem you genuinely care about, you're ready to apply.",
+    a: "No. The club's workshops and community activities are designed to help students explore problems, test ideas, and learn by building.",
   },
   {
     q: "Does it cost anything? Do you take equity?",
-    a: "It's free to join, and we don't take equity in your company. Any funding we provide is there to help you build — not to own a piece of you.",
-  },
-  {
-    q: "How much time does it take?",
-    a: "Plan for roughly [8–10] hours a week across the [6]-month program — workshops, mentor sessions, and building. It's designed to run alongside your studies, not replace them.",
-  },
-  {
-    q: "When does the next cohort start?",
-    a: "Cohort [X] begins [Month Year], and applications close [Month DD, Year]. We review on a rolling basis, so applying early genuinely helps.",
+    a: "The public club information does not state current participation fees or equity terms. Contact the club directly for the latest details.",
   },
   {
     q: "What do I actually walk away with?",
-    a: "Funding to build, weekly mentorship, a workspace on campus, tools and credits, a Demo Day stage, and a founder network that lasts well beyond graduation.",
+    a: "You can take part in workshops, meet other builders, and learn about grants and funding opportunities. Specific support varies by activity.",
   },
   {
     q: "Can I apply with just an idea and no team?",
-    a: "Absolutely. Plenty of founders start solo and meet co-founders inside the program. Come as you are.",
+    a: "Reach out with your idea. The club can share the current ways to get involved and connect you with its builder community.",
   },
 ];
 
@@ -171,10 +177,10 @@ const NAV_LINKS = [
 ];
 
 const SOCIALS = [
-  { name: "Instagram", icon: "/assets/icons/instagram.svg", href: "#" },
-  { name: "LinkedIn", icon: "/assets/icons/linkedin.svg", href: "#" },
-  { name: "Discord", icon: "/assets/icons/discord.svg", href: "#" },
-  { name: "Telegram", icon: "/assets/icons/telegram.svg", href: "#" },
+  { name: "Instagram", icon: "/assets/icons/instagram.svg", href: "https://www.instagram.com/nyptech/" },
+  { name: "LinkedIn", icon: "/assets/icons/linkedin.svg", href: "https://sg.linkedin.com/company/nyptech" },
+  { name: "Discord", icon: "/assets/icons/discord.svg", href: "https://go.nyptech.club/discord" },
+  { name: "Telegram", icon: "/assets/icons/telegram.svg", href: "https://go.nyptech.club/telegram" },
 ];
 
 // ── Shared primitives ─────────────────────────────────────────────────────────
@@ -409,8 +415,8 @@ function Navbar() {
         )}
       >
         <a href="#top" className="flex items-center gap-2.5">
-          <img src="/assets/logo.png" alt="" className="size-8 rounded-full" />
-          <span className="text-foreground text-[15px] font-semibold tracking-tight">NYP Tech</span>
+          <img src="/icon.png" alt="" className="size-8 rounded-full" />
+          <span className="text-foreground text-[15px] font-semibold tracking-tight">NYP Technopreneurs</span>
         </a>
 
         <div className="hidden items-center gap-7 md:flex">
@@ -419,8 +425,8 @@ function Navbar() {
           ))}
         </div>
 
-        <CtaLink href={APPLY_URL} external variant="primary" className="px-4 py-2 text-[13px]">
-          Apply
+        <CtaLink href={CONTACT_URL} external variant="primary" className="px-4 py-2 text-[13px]">
+          Get in touch
         </CtaLink>
       </nav>
     </header>
@@ -609,7 +615,7 @@ function Hero() {
         <motion.div {...rise(0)} className="mb-7 flex justify-center">
           <span className="border-brand/15 bg-brand-soft text-brand inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[13px] font-medium">
             <span className="bg-brand size-1.5 rounded-full" />
-            Applications open &middot; Cohort [X]
+            NYP student founders &middot; Build what matters
           </span>
         </motion.div>
 
@@ -630,13 +636,13 @@ function Hero() {
           {...rise(0.18)}
           className="text-muted-foreground mx-auto mt-8 max-w-2xl text-lg leading-relaxed md:text-xl"
         >
-          NYP's student incubator. We give you funding, mentors, and a room full of builders for [6] months — so the
-          idea you've been sitting on finally ships.
+          NYP's student incubator for builders turning ideas into ventures through mentorship, resources, funding
+          guidance, and a startup community.
         </motion.p>
 
         <motion.div {...rise(0.28)} className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <CtaLink href={APPLY_URL} external variant="primary" arrow>
-            Apply now
+          <CtaLink href={CONTACT_URL} external variant="primary" arrow>
+            Get in touch
           </CtaLink>
           <CtaLink href="#startups" variant="secondary">
             See startups
@@ -644,7 +650,7 @@ function Hero() {
         </motion.div>
 
         <motion.p {...rise(0.4)} className="text-muted-foreground mt-5 text-[13px]">
-          Free to join &middot; takes about [10] minutes &middot; no pitch deck needed
+          Student-led &middot; multidisciplinary &middot; built for doers
         </motion.p>
       </div>
     </section>
@@ -731,17 +737,16 @@ function ProgramOverview() {
           </h2>
           <div data-gsap-item className="text-muted-foreground mt-7 space-y-5 text-[15px] leading-relaxed">
             <p>
-              The NYP Tech Incubator is for students who want to build real companies — not class projects. Every
-              [semester] we take a small cohort of teams and spend [6] months turning rough ideas into products with
-              actual users.
+              NYP Technopreneurship Club is where students explore the startup world by building, testing, and sharing
+              ideas with people who are doing the same.
             </p>
             <p>
-              You get funding to build, weekly mentorship from founders and operators, a workspace on campus, and a
-              network that doesn't expire the day you graduate. It all ends with Demo Day: you, on stage, in front of
-              investors and industry partners.
+              Workshops, founder conversations, community events, and funding guidance make it easier to move from a
+              first problem to a real prototype. NYP Link and NYP Solve bring students together with founders, mentors,
+              and industry.
             </p>
             <p className="text-foreground font-medium">
-              Most of all, it's a room full of people who are as serious about building as you are.
+              Most of all, it is a community of students serious about building useful things.
             </p>
           </div>
         </Reveal>
@@ -821,43 +826,44 @@ function WhoShouldApply() {
   );
 }
 
-// ── Success stories ─────────────────────────────────────────────────────────
+// ── Startup stories ─────────────────────────────────────────────────────────
 
 function SuccessStories() {
   return (
     <SectionShell id="stories">
       <Reveal className="max-w-2xl">
-        <Eyebrow>Success stories</Eyebrow>
+        <Eyebrow>Startup stories</Eyebrow>
         <h2
           data-gsap-heading
           className="text-foreground mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight md:text-5xl"
         >
-          Built by students who started right where you are.
+          From student problems to ventures with real-world impact.
         </h2>
       </Reveal>
 
       <div className="mt-14 grid gap-5 md:grid-cols-3">
         {STORIES.map((s, i) => (
           <Reveal key={i} delay={i * 0.1}>
-            <figure
+            <article
               data-gsap-item
               data-gsap-tilt
               className="border-border relative flex h-full flex-col rounded-2xl border bg-white p-7"
             >
-              <QuoteMark className="h-8 w-10" />
-              <blockquote className="text-foreground mt-4 flex-1 text-[15px] leading-relaxed">{s.quote}</blockquote>
-              <figcaption className="border-border mt-6 border-t pt-5">
+              <p className="text-brand text-xs font-semibold tracking-[0.16em] uppercase">Startup story</p>
+              <h3 className="text-foreground mt-4 font-serif text-2xl leading-tight font-medium">{s.title}</h3>
+              <p className="text-muted-foreground mt-4 flex-1 text-[15px] leading-relaxed">{s.story}</p>
+              <div className="border-border mt-6 border-t pt-5">
                 <div className="flex items-center gap-3">
                   <span className="bg-brand-soft text-brand grid size-10 place-items-center rounded-full font-serif text-base font-medium">
-                    {s.name.replace(/[^A-Za-z]/g, "").charAt(0) || "F"}
+                    {s.startup.replace(/[^A-Za-z]/g, "").charAt(0) || "S"}
                   </span>
                   <div>
-                    <p className="text-foreground text-sm font-semibold">{s.name}</p>
-                    <p className="text-muted-foreground text-xs">{s.role}</p>
+                    <p className="text-foreground text-sm font-semibold">{s.startup}</p>
+                    <p className="text-muted-foreground text-xs">{s.outcome}</p>
                   </div>
                 </div>
-              </figcaption>
-            </figure>
+              </div>
+            </article>
           </Reveal>
         ))}
       </div>
@@ -880,6 +886,11 @@ function StartupText({ s }: { s: (typeof STARTUPS)[number] }) {
       </h3>
       <p className="text-muted-foreground mt-5 max-w-md text-lg leading-relaxed">{s.blurb}</p>
       <p className="text-brand mt-6 text-sm font-semibold">{s.metric}</p>
+      {"url" in s && s.url && (
+        <CtaLink href={s.url} external variant="secondary" arrow className="mt-6">
+          Visit startup
+        </CtaLink>
+      )}
     </>
   );
 }
@@ -905,11 +916,11 @@ function StartupLogoGrid({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "border-border/70 flex aspect-square w-full items-center justify-center rounded-[2rem] border bg-[#f7f7f2] p-8 shadow-[0_24px_70px_rgba(15,23,42,0.10)]",
+        "border-border/70 flex aspect-square w-full items-center justify-center rounded-[2rem] border bg-[#f7f7f2] p-6 shadow-[0_24px_70px_rgba(15,23,42,0.10)]",
         className,
       )}
     >
-      <div className="grid w-full max-w-lg grid-cols-2 items-center gap-x-12 gap-y-12 sm:grid-cols-4 sm:gap-x-10">
+      <div className="grid w-full max-w-2xl grid-cols-2 items-center gap-x-6 gap-y-7 sm:grid-cols-4 sm:gap-x-8">
         {STARTUP_LOGOS.map((logo) => (
           <div key={logo.name} className="flex items-center justify-center">
             <img src={logo.src} alt={logo.name} className="max-h-12 max-w-28 object-contain" />
@@ -1031,7 +1042,7 @@ function PinnedStartups() {
                         <span className="block">
                           <span className="block">{s.name}</span>
                           <span className="mt-2 block text-lg font-medium tracking-[-0.02em] md:text-xl">
-                            combined valuation
+                            student ventures
                           </span>
                         </span>
                       ) : (
@@ -1087,17 +1098,7 @@ function PinnedStartups() {
                       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                       className="absolute inset-0 flex items-center justify-center p-4"
                     >
-                      <div className="relative h-[440px] w-full max-w-2xl">
-                        {STARTUP_LOGOS.map((logo) => (
-                          <img
-                            key={logo.name}
-                            src={logo.src}
-                            alt={logo.name}
-                            className="absolute h-28 w-48 object-contain"
-                            style={LOGO_COLLAGE_POSITIONS[logo.name]}
-                          />
-                        ))}
-                      </div>
+                      <StartupLogoGrid className="h-full max-h-[500px] max-w-2xl" />
                     </motion.div>
                   ) : (
                     <motion.img
@@ -1126,6 +1127,11 @@ function PinnedStartups() {
             >
               <p className="text-muted-foreground mt-7 text-[15px] leading-relaxed md:text-base">{current.blurb}</p>
               <p className="text-foreground mt-3 text-sm font-medium">{current.metric}</p>
+              {"url" in current && current.url && (
+                <CtaLink href={current.url} external variant="secondary" arrow className="mt-6">
+                  Visit startup
+                </CtaLink>
+              )}
             </motion.div>
           </div>
         </div>
@@ -1195,7 +1201,7 @@ function Faq() {
             Good questions.
           </h2>
           <p className="text-muted-foreground mt-5 text-[15px] leading-relaxed">
-            Still unsure about something? Reach out — we'd rather you ask than not apply.
+            Still unsure about something? Reach out. We would rather you ask than leave an idea unexplored.
           </p>
           <div data-gsap-float>
             <DoodleArrow className="text-brand/40 mt-8 hidden size-20 -scale-x-100 md:block" />
@@ -1250,23 +1256,24 @@ function FinalCta() {
             <br />
             to{" "}
             <span className="text-brand relative inline-block whitespace-nowrap">
-              apply.
+              start.
               <SketchUnderline className="absolute -bottom-2 left-0 h-3 w-full" />
             </span>
           </h2>
           <p className="text-muted-foreground mx-auto mt-7 max-w-xl text-lg leading-relaxed">
-            The worst thing you can do with an idea is wait. Applications for Cohort [X] close [Month DD, Year].
+            The worst thing you can do with an idea is wait. Reach out to learn about upcoming activities and ways to
+            get involved.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <CtaLink href={APPLY_URL} external variant="primary" arrow>
-              Apply now
+            <CtaLink href={CONTACT_URL} external variant="primary" arrow>
+              Get in touch
             </CtaLink>
             <CtaLink href="#faq" variant="secondary">
               Read the FAQ
             </CtaLink>
           </div>
           <p className="text-muted-foreground mt-5 text-[13px]">
-            Free &middot; about [10] minutes &middot; no pitch deck needed
+            Workshops &middot; community &middot; founder support
           </p>
         </Reveal>
       </div>
@@ -1283,13 +1290,13 @@ function Footer() {
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
             <div className="flex items-center gap-2.5">
-              <img src="/assets/logo.png" alt="" className="size-8 rounded-full" />
+              <img src="/icon.png" alt="" className="size-8 rounded-full" />
               <span className="text-foreground text-[15px] font-semibold tracking-tight">
                 NYP Technopreneurship Club
               </span>
             </div>
             <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
-              The student incubator at Nanyang Polytechnic. We help students turn ideas into companies.
+              Nanyang Polytechnic's student community for builders turning ideas into ventures.
             </p>
           </div>
 
@@ -1308,8 +1315,8 @@ function Footer() {
             </nav>
             <div className="flex flex-col gap-3">
               <p className="text-muted-foreground text-xs font-semibold tracking-[0.16em] uppercase">Get started</p>
-              <CtaLink href={APPLY_URL} external variant="primary" arrow className="w-fit px-4 py-2 text-[13px]">
-                Apply now
+              <CtaLink href={CONTACT_URL} external variant="primary" arrow className="w-fit px-4 py-2 text-[13px]">
+                Get in touch
               </CtaLink>
               <div className="mt-1 flex items-center gap-2.5">
                 {SOCIALS.map((s) => (
@@ -1317,6 +1324,8 @@ function Footer() {
                     key={s.name}
                     href={s.href}
                     aria-label={s.name}
+                    target="_blank"
+                    rel="noreferrer"
                     className="border-border hover:border-brand/40 hover:bg-brand-soft grid size-9 place-items-center rounded-full border transition-colors"
                   >
                     <img src={s.icon} alt="" className="size-4 opacity-50" />
