@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode, RefObject } from "react";
 
 import {
-  DoodleArrow,
   IconRocket,
   Reveal,
   SketchCheck,
@@ -32,26 +31,27 @@ const STATS = [
 
 const PERSONAS = [
   {
-    tag: "The tinkerer",
-    body: "You're always making things — apps, side projects, prototypes. You want one to become more than a hobby.",
+    tag: "Explorer",
+    body: "Here to learn, curious, no idea yet.",
   },
   {
-    tag: "The problem-spotter",
-    body: "You keep noticing things that are broken and thinking “someone should fix this.” That someone is you.",
+    tag: "Ideator",
+    body: "Has an idea and needs help validating, growing, and doing it.",
   },
   {
-    tag: "The ready team",
-    body: "You and a friend have an idea and just need the push, the funding, and the people to make it real.",
+    tag: "Builder",
+    body: "Actively building and looking for collaborators or direction.",
   },
   {
-    tag: "The first-timer",
-    body: "You've never built a company and have no clue where to start. Perfect — that's exactly what this is for.",
+    tag: "Founder",
+    body: "Something real is already running, such as Camoji or Keypiece.",
   },
 ];
 
 const STORIES = [
   {
     startup: "Virage",
+    icon: "/assets/startups/virage.png",
     title: "From final-year project to scam defense.",
     story:
       "Inspired by digital-skills work with seniors, the team built realistic AI voice-scam simulations that make cybersecurity training more practical and memorable.",
@@ -59,6 +59,7 @@ const STORIES = [
   },
   {
     startup: "ProcoLink",
+    icon: "/assets/startups/procolink.png",
     title: "Turning AI support into a real business.",
     story:
       "What began as a final-year project became a registered company. Its flagship product, AIRES, gives teams a human-like AI helpdesk for IT operations.",
@@ -66,6 +67,7 @@ const STORIES = [
   },
   {
     startup: "AM Digiparts",
+    icon: "/assets/startups/amdigiparts.svg",
     title: "Making physical catalogues searchable.",
     story:
       "Built around a motorcycle retailer's daily search problem, the team used OCR and analytics to turn printed catalogues into a fast, searchable parts platform.",
@@ -133,10 +135,9 @@ const STARTUP_LOGOS = [
   { name: "OneLLM", src: "/assets/startups/onellm.png", url: "https://onellm.ai/" },
   { name: "ProcoLink", src: "/assets/startups/procolink.png", url: "https://proco.link/" },
   { name: "Virage", src: "/assets/startups/virage.png", url: "https://virage.app/" },
-  { name: "Pronto", src: "/assets/startups/pronto.png", url: "https://pronto.sg/" },
   { name: "Proton", src: "/assets/startups/proton.svg", url: "https://proton.me/" },
   { name: "SparkJob", src: "/assets/startups/sparkjob.svg", url: "https://sparkjob.app/" },
-  { name: "Yyllage", src: "/assets/startups/yyllage.svg", url: "https://yyllage.com/" },
+  { name: "Tyllage", src: "/assets/startups/tyllage.svg", url: "https://tyllage.com/" },
 ];
 
 const FAQS = [
@@ -727,8 +728,7 @@ function ProgramOverview() {
             </p>
             <p>
               Workshops, founder conversations, community events, and funding guidance make it easier to move from a
-              first problem to a real prototype. NYP Link and NYP Solve bring students together with founders, mentors,
-              and industry.
+              first problem to a real prototype.
             </p>
             <p className="text-foreground font-medium">
               Most of all, it is a community of students serious about building useful things.
@@ -839,9 +839,9 @@ function SuccessStories() {
               <p className="text-muted-foreground mt-4 flex-1 text-[15px] leading-relaxed">{s.story}</p>
               <div className="border-border mt-6 border-t pt-5">
                 <div className="flex items-center gap-3">
-                  <span className="bg-brand-soft text-brand grid size-10 place-items-center rounded-full font-serif text-base font-medium">
-                    {s.startup.replace(/[^A-Za-z]/g, "").charAt(0) || "S"}
-                  </span>
+                  <div className="border-border grid size-10 shrink-0 place-items-center overflow-hidden rounded-xl border bg-white">
+                    <img src={s.icon} alt={`${s.startup} logo`} className="h-full w-full object-cover" />
+                  </div>
                   <div>
                     <p className="text-foreground text-sm font-semibold">{s.startup}</p>
                     <p className="text-muted-foreground text-xs">{s.outcome}</p>
@@ -862,11 +862,11 @@ function StartupLogoGrid({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "border-border/70 flex aspect-square w-full items-center justify-center rounded-[2rem] border bg-[#f7f7f2] p-6 shadow-[0_24px_70px_rgba(15,23,42,0.10)]",
+        "border-border/70 flex aspect-square w-full items-center justify-center rounded-[2rem] border p-6 shadow-[0_24px_70px_rgba(15,23,42,0.10)]",
         className,
       )}
     >
-      <div className="grid w-full max-w-2xl grid-cols-2 items-center gap-x-6 gap-y-7 sm:grid-cols-4 sm:gap-x-8">
+      <div className="grid w-full max-w-2xl grid-cols-2 justify-items-center gap-x-6 gap-y-7 sm:grid-cols-4 sm:gap-x-8">
         {STARTUP_LOGOS.map((logo) => (
           <a
             key={logo.name}
@@ -874,9 +874,9 @@ function StartupLogoGrid({ className }: { className?: string }) {
             target="_blank"
             rel="noreferrer"
             aria-label={`Visit ${logo.name}`}
-            className="focus-visible:outline-brand flex min-h-16 items-center justify-center rounded-xl p-2 transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2"
+            className="focus-visible:outline-brand flex size-16 items-center justify-center overflow-hidden rounded-xl transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2"
           >
-            <img src={logo.src} alt={logo.name} className="max-h-12 max-w-28 object-contain" />
+            <img src={logo.src} alt={logo.name} className="h-full w-full object-cover" />
           </a>
         ))}
       </div>
@@ -1030,8 +1030,8 @@ function PinnedStartups() {
                 </>
               ) : (
                 <>
-                  <div className="border-border bg-muted/40 flex size-24 items-center justify-center rounded-2xl border p-4">
-                    <img src={current.image} alt={`${current.name} logo`} className="h-full w-full object-contain" />
+                  <div className="border-border flex size-24 items-center justify-center overflow-hidden rounded-2xl border bg-white">
+                    <img src={current.image} alt={`${current.name} logo`} className="h-full w-full object-cover" />
                   </div>
                   <span className="text-brand mt-6 block text-xs font-semibold tracking-[0.16em] uppercase">
                     {current.category}
@@ -1071,8 +1071,8 @@ function StackedStartups() {
             </article>
           ) : (
             <article className="border-border flex flex-col gap-5 rounded-2xl border bg-white p-6 sm:flex-row sm:items-start md:px-8 md:py-7">
-              <div className="border-border bg-muted/40 flex size-20 shrink-0 items-center justify-center rounded-2xl border p-3">
-                <img src={s.image} alt={`${s.name} logo`} className="h-full w-full object-contain" />
+              <div className="border-border flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border bg-white">
+                <img src={s.image} alt={`${s.name} logo`} className="h-full w-full object-cover" />
               </div>
               <div className="min-w-0 flex-1">
                 <span className="text-brand text-xs font-semibold tracking-[0.16em] uppercase">{s.category}</span>
@@ -1130,9 +1130,6 @@ function Faq() {
           <p className="text-muted-foreground mt-5 text-[15px] leading-relaxed">
             Still unsure about something? Reach out. We would rather you ask than leave an idea unexplored.
           </p>
-          <div data-gsap-float>
-            <DoodleArrow className="text-brand/40 mt-8 hidden size-20 -scale-x-100 md:block" />
-          </div>
         </Reveal>
 
         <Reveal delay={0.1}>
