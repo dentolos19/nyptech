@@ -86,6 +86,24 @@ const STARTUPS = [
     url: "https://virage.app/",
   },
   {
+    name: "Camoji",
+    category: "Event Tech",
+    blurb:
+      "An event contact-capture platform that uses QR codes and business-card scanning to manage registration, check-in, and follow-up.",
+    metric: "From event sign-up to meaningful follow-up.",
+    image: "/assets/startups/camoji.svg",
+    url: "https://camoji.io/",
+  },
+  {
+    name: "AM Digiparts",
+    category: "Industry AI",
+    blurb:
+      "An OCR and analytics platform that converts printed motorcycle-parts catalogues into searchable data, helping repair teams find parts in seconds.",
+    metric: "16% productivity gain in its first industry pilot.",
+    image: "/assets/startups/amdigiparts.svg",
+    url: "https://www.amdigiparts.com/",
+  },
+  {
     name: "ProcoLink",
     category: "Applied AI",
     blurb:
@@ -93,24 +111,6 @@ const STARTUPS = [
     metric: "A registered company built from an NYP final-year project.",
     image: "/assets/startups/procolink.png",
     url: "https://proco.link/",
-  },
-  {
-    name: "Bihance",
-    category: "Event Tech",
-    blurb:
-      "An end-to-end event-management platform for organizing event workspaces, schedules, shifts, notifications, and participant activity.",
-    metric: "20+ features for event operations.",
-    image: "/assets/startups/bihance.png",
-    url: "https://bihance.app/",
-  },
-  {
-    name: "Pronto",
-    category: "Future Of Work",
-    blurb:
-      "Singapore's AI-powered job-matching app for flexible shifts, part-time roles, and full-time opportunities across F&B, retail, events, and more.",
-    metric: "A job for every schedule.",
-    image: "/assets/startups/pronto.png",
-    url: "https://pronto.sg/",
   },
   {
     name: "And More",
