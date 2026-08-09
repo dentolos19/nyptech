@@ -111,15 +111,7 @@ const STARTUPS = [
     url: "https://pronto.sg/",
   },
   {
-    name: "AM Digiparts",
-    category: "Industry AI",
-    blurb:
-      "An OCR and analytics platform that converts printed motorcycle-parts catalogues into searchable data, helping repair teams find parts in seconds.",
-    metric: "16% productivity gain in its first industry pilot.",
-    image: "/assets/startups/amdigiparts.svg",
-  },
-  {
-    name: "Venture Network",
+    name: "And More",
     category: "Student Ventures",
     blurb:
       "Beyond the featured portfolio, NYP students are building ventures across AI, event technology, productivity, digital trade, and community impact.",
@@ -129,22 +121,22 @@ const STARTUPS = [
 ];
 
 const STARTUP_LOGOS = [
-  { name: "AirQueue", src: "/assets/startups/airqueue.svg" },
-  { name: "AkitaVault", src: "/assets/startups/akitavault.svg" },
-  { name: "AM Digiparts", src: "/assets/startups/amdigiparts.svg" },
-  { name: "ArchAIve", src: "/assets/startups/archaive.svg" },
-  { name: "Bihance", src: "/assets/startups/bihance.png" },
-  { name: "Camoji", src: "/assets/startups/camoji.svg" },
-  { name: "Initiate", src: "/assets/startups/initiate.svg" },
-  { name: "Keypiece AI", src: "/assets/startups/keypiece.svg" },
-  { name: "NetVet", src: "/assets/startups/netvet.svg" },
-  { name: "OneLLM", src: "/assets/startups/onellm.png" },
-  { name: "ProcoLink", src: "/assets/startups/procolink.png" },
-  { name: "Virage", src: "/assets/startups/virage.png" },
-  { name: "Pronto", src: "/assets/startups/pronto.png" },
-  { name: "Proton", src: "/assets/startups/proton.svg" },
-  { name: "SparkJob", src: "/assets/startups/sparkjob.svg" },
-  { name: "Yyllage", src: "/assets/startups/yyllage.svg" },
+  { name: "AirQueue", src: "/assets/startups/airqueue.svg", url: "https://airqueue.app/" },
+  { name: "AkitaVault", src: "/assets/startups/akitavault.svg", url: "https://akitavault.com/" },
+  { name: "AM Digiparts", src: "/assets/startups/amdigiparts.svg", url: "https://www.amdigiparts.com/" },
+  { name: "ArchAIve", src: "/assets/startups/archaive.svg", url: "https://archaiveapp.com/" },
+  { name: "Bihance", src: "/assets/startups/bihance.png", url: "https://bihance.app/" },
+  { name: "Camoji", src: "/assets/startups/camoji.svg", url: "https://camoji.io/" },
+  { name: "Initiate", src: "/assets/startups/initiate.svg", url: "https://initiate.global/" },
+  { name: "Keypiece AI", src: "/assets/startups/keypiece.svg", url: "https://www.keypiece.ai/" },
+  { name: "NetVet", src: "/assets/startups/netvet.svg", url: "https://netvet.io/" },
+  { name: "OneLLM", src: "/assets/startups/onellm.png", url: "https://onellm.ai/" },
+  { name: "ProcoLink", src: "/assets/startups/procolink.png", url: "https://proco.link/" },
+  { name: "Virage", src: "/assets/startups/virage.png", url: "https://virage.app/" },
+  { name: "Pronto", src: "/assets/startups/pronto.png", url: "https://pronto.sg/" },
+  { name: "Proton", src: "/assets/startups/proton.svg", url: "https://proton.me/" },
+  { name: "SparkJob", src: "/assets/startups/sparkjob.svg", url: "https://sparkjob.app/" },
+  { name: "Yyllage", src: "/assets/startups/yyllage.svg", url: "https://yyllage.com/" },
 ];
 
 const FAQS = [
@@ -179,7 +171,7 @@ const NAV_LINKS = [
 const SOCIALS = [
   { name: "Instagram", icon: "/assets/icons/instagram.svg", href: "https://www.instagram.com/nyptech/" },
   { name: "LinkedIn", icon: "/assets/icons/linkedin.svg", href: "https://sg.linkedin.com/company/nyptech" },
-  { name: "Discord", icon: "/assets/icons/discord.svg", href: "https://go.nyptech.club/discord" },
+  { name: "Discord", icon: "/assets/icons/discord.svg", href: "https://discord.gg/qxcvnAYN69" },
   { name: "Telegram", icon: "/assets/icons/telegram.svg", href: "https://go.nyptech.club/telegram" },
 ];
 
@@ -612,15 +604,8 @@ function Hero() {
       <HeroInfinityParticles />
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <motion.div {...rise(0)} className="mb-7 flex justify-center">
-          <span className="border-brand/15 bg-brand-soft text-brand inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[13px] font-medium">
-            <span className="bg-brand size-1.5 rounded-full" />
-            NYP student founders &middot; Build what matters
-          </span>
-        </motion.div>
-
         <motion.h1
-          {...rise(0.08)}
+          {...rise(0)}
           className="text-foreground text-[2.6rem] leading-[1.05] font-bold tracking-tight sm:text-6xl md:text-7xl"
         >
           Build the company
@@ -633,14 +618,14 @@ function Hero() {
         </motion.h1>
 
         <motion.p
-          {...rise(0.18)}
+          {...rise(0.1)}
           className="text-muted-foreground mx-auto mt-8 max-w-2xl text-lg leading-relaxed md:text-xl"
         >
           NYP's student incubator for builders turning ideas into ventures through mentorship, resources, funding
           guidance, and a startup community.
         </motion.p>
 
-        <motion.div {...rise(0.28)} className="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <motion.div {...rise(0.2)} className="mt-10 flex flex-wrap items-center justify-center gap-3">
           <CtaLink href={CONTACT_URL} external variant="primary" arrow>
             Get in touch
           </CtaLink>
@@ -649,7 +634,7 @@ function Hero() {
           </CtaLink>
         </motion.div>
 
-        <motion.p {...rise(0.4)} className="text-muted-foreground mt-5 text-[13px]">
+        <motion.p {...rise(0.3)} className="text-muted-foreground mt-5 text-[13px]">
           Student-led &middot; multidisciplinary &middot; built for doers
         </motion.p>
       </div>
@@ -871,46 +856,7 @@ function SuccessStories() {
   );
 }
 
-// ── Startups showcase (GSAP-pinned scroll sequence + Framer transitions) ──────
-
-const pad = (n: number) => String(n).padStart(2, "0");
-
-function StartupText({ s }: { s: (typeof STARTUPS)[number] }) {
-  return (
-    <>
-      <span className="border-brand/15 bg-brand-soft text-brand inline-flex rounded-full border px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-        {s.category}
-      </span>
-      <h3 className="text-foreground mt-5 font-serif text-4xl leading-[1.05] font-medium tracking-tight md:text-5xl">
-        {s.name}
-      </h3>
-      <p className="text-muted-foreground mt-5 max-w-md text-lg leading-relaxed">{s.blurb}</p>
-      <p className="text-brand mt-6 text-sm font-semibold">{s.metric}</p>
-      {"url" in s && s.url && (
-        <CtaLink href={s.url} external variant="secondary" arrow className="mt-6">
-          Visit startup
-        </CtaLink>
-      )}
-    </>
-  );
-}
-
-function StartupImageFrame({ s, className }: { s: (typeof STARTUPS)[number]; className?: string }) {
-  if (s.isMilestone) {
-    return <StartupLogoGrid className={className} />;
-  }
-
-  return (
-    <div className={cn("relative aspect-[16/11] w-full", className)}>
-      <SketchFrame className="absolute -inset-3 h-[calc(100%+1.5rem)] w-[calc(100%+1.5rem)]" />
-      <img
-        src={s.image}
-        alt={`${s.name} preview`}
-        className="border-border relative h-full w-full rounded-2xl border object-cover shadow-xl"
-      />
-    </div>
-  );
-}
+// ── Startups showcase ────────────────────────────────────────────────────────
 
 function StartupLogoGrid({ className }: { className?: string }) {
   return (
@@ -922,9 +868,16 @@ function StartupLogoGrid({ className }: { className?: string }) {
     >
       <div className="grid w-full max-w-2xl grid-cols-2 items-center gap-x-6 gap-y-7 sm:grid-cols-4 sm:gap-x-8">
         {STARTUP_LOGOS.map((logo) => (
-          <div key={logo.name} className="flex items-center justify-center">
+          <a
+            key={logo.name}
+            href={logo.url}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Visit ${logo.name}`}
+            className="focus-visible:outline-brand flex min-h-16 items-center justify-center rounded-xl p-2 transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
             <img src={logo.src} alt={logo.name} className="max-h-12 max-w-28 object-contain" />
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -1038,16 +991,7 @@ function PinnedStartups() {
                       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                       className="relative inline-block pb-3"
                     >
-                      {s.isMilestone ? (
-                        <span className="block">
-                          <span className="block">{s.name}</span>
-                          <span className="mt-2 block text-lg font-medium tracking-[-0.02em] md:text-xl">
-                            student ventures
-                          </span>
-                        </span>
-                      ) : (
-                        s.name
-                      )}
+                      {s.name}
                       {i === active && (
                         <motion.span
                           aria-hidden="true"
@@ -1066,73 +1010,43 @@ function PinnedStartups() {
             </ul>
           </div>
 
-          {/* Right — crossfading image + caption */}
-          <div className="min-w-0 pr-0 text-center">
-            <div
-              className={cn(
-                "relative mx-auto w-full max-w-[760px] overflow-hidden",
-                current.isMilestone
-                  ? "flex min-h-[520px] items-center justify-center"
-                  : "aspect-square rounded-[2.25rem] border border-white/80 bg-white p-2 shadow-[0_30px_90px_rgba(15,23,42,0.12)] ring-1 ring-black/5",
-              )}
-            >
-              {!current.isMilestone && (
-                <div className="to-brand/5 absolute inset-0 bg-gradient-to-br from-white/70 via-transparent" />
-              )}
-              <div
-                className={cn(
-                  "relative h-full w-full overflow-hidden",
-                  current.isMilestone ? "min-h-[520px]" : "rounded-[1.75rem] bg-muted",
-                )}
-              >
-                {STARTUPS.map((s, i) =>
-                  s.isMilestone ? (
-                    <motion.div
-                      key={s.name}
-                      initial={false}
-                      animate={{
-                        opacity: i === active ? 1 : 0,
-                        scale: i === active ? 1 : 1.035,
-                        filter: i === active ? "blur(0px)" : "blur(3px)",
-                      }}
-                      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute inset-0 flex items-center justify-center p-4"
-                    >
-                      <StartupLogoGrid className="h-full max-h-[500px] max-w-2xl" />
-                    </motion.div>
-                  ) : (
-                    <motion.img
-                      key={s.name}
-                      src={s.image}
-                      alt={`${s.name} preview`}
-                      initial={false}
-                      animate={{
-                        opacity: i === active ? 1 : 0,
-                        scale: i === active ? 1 : 1.035,
-                        filter: i === active ? "blur(0px)" : "blur(3px)",
-                      }}
-                      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute inset-0 h-full w-full object-cover"
-                    />
-                  ),
-                )}
-              </div>
-            </div>
-            <motion.div
+          <div className="min-w-0">
+            <motion.article
               key={active}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto max-w-xl"
+              className="border-border rounded-2xl border bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,0.08)]"
             >
-              <p className="text-muted-foreground mt-7 text-[15px] leading-relaxed md:text-base">{current.blurb}</p>
-              <p className="text-foreground mt-3 text-sm font-medium">{current.metric}</p>
+              {current.isMilestone ? (
+                <>
+                  <span className="text-brand text-xs font-semibold tracking-[0.16em] uppercase">
+                    {current.category}
+                  </span>
+                  <h3 className="text-foreground mt-3 font-serif text-4xl font-medium">{current.name}</h3>
+                  <p className="text-muted-foreground mt-4 max-w-xl leading-relaxed">{current.blurb}</p>
+                  <p className="text-brand mt-5 text-sm font-semibold">{current.metric}</p>
+                  <StartupLogoGrid className="mt-7 aspect-auto min-h-72" />
+                </>
+              ) : (
+                <>
+                  <div className="border-border bg-muted/40 flex size-24 items-center justify-center rounded-2xl border p-4">
+                    <img src={current.image} alt={`${current.name} logo`} className="h-full w-full object-contain" />
+                  </div>
+                  <span className="text-brand mt-6 block text-xs font-semibold tracking-[0.16em] uppercase">
+                    {current.category}
+                  </span>
+                  <h3 className="text-foreground mt-3 font-serif text-4xl font-medium">{current.name}</h3>
+                  <p className="text-muted-foreground mt-4 max-w-xl leading-relaxed">{current.blurb}</p>
+                  <p className="text-brand mt-5 text-sm font-semibold">{current.metric}</p>
+                </>
+              )}
               {"url" in current && current.url && (
                 <CtaLink href={current.url} external variant="secondary" arrow className="mt-6">
                   Visit startup
                 </CtaLink>
               )}
-            </motion.div>
+            </motion.article>
           </div>
         </div>
       </div>
@@ -1142,22 +1056,37 @@ function PinnedStartups() {
 
 function StackedStartups() {
   return (
-    <div className="mx-auto max-w-6xl space-y-20 px-6 pt-2">
-      {STARTUPS.map((s, i) => (
+    <div className="mx-auto grid max-w-5xl gap-4 px-6">
+      {STARTUPS.map((s) => (
         <Reveal key={s.name}>
-          <div className="grid items-center gap-10 md:grid-cols-2">
-            <div className={cn(i % 2 === 1 && "md:order-2")}>
-              <div className="text-brand flex items-center gap-3 text-sm font-semibold">
-                <span className="font-mono">{pad(i + 1)}</span>
-                <span className="bg-brand/30 h-px w-10" />
-                <span className="text-muted-foreground font-mono">{pad(STARTUPS.length)}</span>
+          {s.isMilestone ? (
+            <article className="border-border rounded-2xl border bg-white p-6 md:p-8">
+              <span className="border-brand/15 bg-brand-soft text-brand inline-flex rounded-full border px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+                {s.category}
+              </span>
+              <h3 className="text-foreground mt-4 font-serif text-3xl leading-tight font-medium">{s.name}</h3>
+              <p className="text-muted-foreground mt-3 max-w-2xl leading-relaxed">{s.blurb}</p>
+              <p className="text-brand mt-4 text-sm font-semibold">{s.metric}</p>
+              <StartupLogoGrid className="mt-7 aspect-auto min-h-72" />
+            </article>
+          ) : (
+            <article className="border-border flex flex-col gap-5 rounded-2xl border bg-white p-6 sm:flex-row sm:items-start md:px-8 md:py-7">
+              <div className="border-border bg-muted/40 flex size-20 shrink-0 items-center justify-center rounded-2xl border p-3">
+                <img src={s.image} alt={`${s.name} logo`} className="h-full w-full object-contain" />
               </div>
-              <div className="mt-5">
-                <StartupText s={s} />
+              <div className="min-w-0 flex-1">
+                <span className="text-brand text-xs font-semibold tracking-[0.16em] uppercase">{s.category}</span>
+                <h3 className="text-foreground mt-2 font-serif text-3xl leading-tight font-medium">{s.name}</h3>
+                <p className="text-muted-foreground mt-3 max-w-2xl leading-relaxed">{s.blurb}</p>
+                <p className="text-brand mt-4 text-sm font-semibold">{s.metric}</p>
               </div>
-            </div>
-            <StartupImageFrame s={s} className={cn(i % 2 === 1 && "md:order-1")} />
-          </div>
+              {"url" in s && s.url && (
+                <CtaLink href={s.url} external variant="secondary" arrow className="shrink-0 sm:self-center">
+                  Visit startup
+                </CtaLink>
+              )}
+            </article>
+          )}
         </Reveal>
       ))}
     </div>
@@ -1168,15 +1097,13 @@ function StartupsShowcase() {
   const reduced = useReducedMotion();
   const [enhanced, setEnhanced] = useState(false);
 
-  // Pinned scroll-jacking only on desktop + when motion is allowed; otherwise a
-  // clean stacked layout that still reveals each startup on scroll.
   useEffect(() => {
     if (reduced) return;
-    const mq = window.matchMedia("(min-width: 768px)");
-    const update = () => setEnhanced(mq.matches);
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const update = () => setEnhanced(mediaQuery.matches);
     update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
   }, [reduced]);
 
   return (
