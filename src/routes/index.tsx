@@ -143,7 +143,7 @@ const STARTUP_LOGOS = [
 const FAQS = [
   {
     q: "Who can apply?",
-    a: "NYP Technopreneurship Club is a student community at Nanyang Polytechnic. Its activities are for students exploring entrepreneurship, from first ideas to early ventures.",
+    a: "NYP Technopreneurship is a student community at Nanyang Polytechnic. Its activities are for students exploring entrepreneurship, from first ideas to early ventures.",
   },
   {
     q: "Do I need a fully formed idea?",
@@ -408,8 +408,8 @@ function Navbar() {
         )}
       >
         <a href="#top" className="flex items-center gap-2.5">
-          <img src="/icon.png" alt="" className="size-8 rounded-full" />
-          <span className="text-foreground text-[15px] font-semibold tracking-tight">NYP Technopreneurs</span>
+          <img src="/icon2.jpeg" alt="" className="size-8 rounded-full" />
+          <span className="text-foreground text-[15px] font-semibold tracking-tight">NYP Technopreneurship</span>
         </a>
 
         <div className="hidden items-center gap-7 md:flex">
@@ -427,153 +427,6 @@ function Navbar() {
 }
 
 // ── Hero ─────────────────────────────────────────────────────────────────────
-
-function HeroInfinityParticles() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const reduced = useReducedMotion();
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    type Particle = {
-      x: number;
-      y: number;
-      tx: number;
-      ty: number;
-      vx: number;
-      vy: number;
-      r: number;
-      alpha: number;
-    };
-
-    const particles: Particle[] = [];
-    const pointer = { x: 0, y: 0, active: false };
-    let width = 0;
-    let height = 0;
-    let dpr = 1;
-    let frame = 0;
-    let animation = 0;
-
-    const buildParticles = () => {
-      particles.length = 0;
-      const count = Math.min(1800, Math.max(900, Math.floor(width / 1.28)));
-      const scaleX = Math.min(width * 0.34, height * 1.05);
-      const scaleY = Math.min(width * 0.17, height * 0.32);
-      const cx = width / 2;
-      const cy = height * 0.46;
-
-      for (let i = 0; i < count; i++) {
-        const t = (i / count) * Math.PI * 2;
-        const wobble = Math.sin(i * 1.73) * 0.018;
-        const band = (Math.random() - 0.5) * 88;
-        const x = cx + scaleX * Math.sin(t + wobble) + band * Math.cos(t * 2);
-        const y = cy + scaleY * Math.sin(t * 2 + wobble) + band * Math.sin(t);
-
-        particles.push({
-          x: x + (Math.random() - 0.5) * 80,
-          y: y + (Math.random() - 0.5) * 60,
-          tx: x,
-          ty: y,
-          vx: 0,
-          vy: 0,
-          r: 1.25 + Math.random() * 1.55,
-          alpha: 0.08 + Math.random() * 0.22,
-        });
-      }
-    };
-
-    const resize = () => {
-      const rect = canvas.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = rect.width;
-      height = rect.height;
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      buildParticles();
-    };
-
-    const updatePointer = (event: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      pointer.active = x >= 0 && x <= rect.width && y >= 0 && y <= rect.height;
-      pointer.x = x;
-      pointer.y = y;
-    };
-
-    const clearPointer = () => {
-      pointer.active = false;
-    };
-
-    const draw = () => {
-      frame += 1;
-      ctx.clearRect(0, 0, width, height);
-
-      const gradient = ctx.createRadialGradient(width / 2, height * 0.36, 40, width / 2, height * 0.36, width * 0.52);
-      gradient.addColorStop(0, "rgba(37, 99, 235, 0.10)");
-      gradient.addColorStop(0.48, "rgba(37, 99, 235, 0.035)");
-      gradient.addColorStop(1, "rgba(37, 99, 235, 0)");
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
-
-      for (const p of particles) {
-        let dx = 0;
-        let dy = 0;
-
-        if (pointer.active && !reduced) {
-          const px = p.x - pointer.x;
-          const py = p.y - pointer.y;
-          const dist = Math.max(1, Math.hypot(px, py));
-          const radius = 145;
-          if (dist < radius) {
-            const force = (1 - dist / radius) ** 2;
-            dx += (px / dist) * force * 72;
-            dy += (py / dist) * force * 72;
-          }
-        }
-
-        const breathe = reduced ? 0 : Math.sin(frame * 0.018 + p.tx * 0.012) * 1.8;
-        const targetX = p.tx + dx;
-        const targetY = p.ty + dy + breathe;
-
-        p.vx += (targetX - p.x) * 0.035;
-        p.vy += (targetY - p.y) * 0.035;
-        p.vx *= 0.82;
-        p.vy *= 0.82;
-        p.x += p.vx;
-        p.y += p.vy;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(37, 99, 235, ${p.alpha})`;
-        ctx.fill();
-      }
-
-      if (!reduced) animation = requestAnimationFrame(draw);
-    };
-
-    resize();
-    draw();
-
-    window.addEventListener("resize", resize);
-    window.addEventListener("pointermove", updatePointer);
-    window.addEventListener("pointerleave", clearPointer);
-
-    return () => {
-      cancelAnimationFrame(animation);
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("pointermove", updatePointer);
-      window.removeEventListener("pointerleave", clearPointer);
-    };
-  }, [reduced]);
-
-  return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" />;
-}
 
 function Hero() {
   const reduced = useReducedMotion();
@@ -602,8 +455,6 @@ function Hero() {
           maskImage: "radial-gradient(70% 60% at 50% 30%, black, transparent)",
         }}
       />
-      <HeroInfinityParticles />
-
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <motion.h1
           {...rise(0)}
@@ -723,7 +574,7 @@ function ProgramOverview() {
           </h2>
           <div data-gsap-item className="text-muted-foreground mt-7 space-y-5 text-[15px] leading-relaxed">
             <p>
-              NYP Technopreneurship Club is where students explore the startup world by building, testing, and sharing
+              NYP Technopreneurship is where students explore the startup world by building, testing, and sharing
               ideas with people who are doing the same.
             </p>
             <p>
@@ -1214,9 +1065,9 @@ function Footer() {
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
             <div className="flex items-center gap-2.5">
-              <img src="/icon.png" alt="" className="size-8 rounded-full" />
+              <img src="/icon2.jpeg" alt="" className="size-8 rounded-full" />
               <span className="text-foreground text-[15px] font-semibold tracking-tight">
-                NYP Technopreneurship Club
+                NYP Technopreneurship
               </span>
             </div>
             <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
@@ -1261,7 +1112,7 @@ function Footer() {
         </div>
 
         <div className="border-border text-muted-foreground mt-12 flex flex-col gap-3 border-t pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
-          <p>&copy; 2026 NYP Technopreneurship Club. All rights reserved.</p>
+          <p>&copy; 2026 NYP Technopreneurship. All rights reserved.</p>
           <p>Built by students, for students.</p>
         </div>
       </div>
