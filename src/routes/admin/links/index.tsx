@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link as LinkIcon } from "lucide-react";
 
-export const Route = createFileRoute("/admin/links")({
+export const Route = createFileRoute("/admin/links/")({
   head: () => ({ meta: [{ title: "Links | NYP Technopreneurship Admin" }] }),
   component: LinksPage,
 });

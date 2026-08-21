@@ -1,5 +1,9 @@
 import handler from "@tanstack/react-start/server-entry";
+import { routeAgentRequest } from "agents";
 
+import { EmailAgent } from "#/lib/emails/agent";
+import { handleEmailApi } from "#/lib/emails/api";
+import { handleIncomingEmail } from "#/lib/emails/inbound";
 import {
   clearAdminSessionCookie,
   createAdminSession,
@@ -18,6 +22,10 @@ const json = (body: Record<string, unknown>, init: ResponseInit = {}) =>
   });
 
 const requiresAdminSession = (pathname: string) => pathname === "/admin" || pathname.startsWith("/admin/");
+
+const isEmailApi = (pathname: string) => pathname === "/admin/api/emails" || pathname.startsWith("/admin/api/emails/");
+
+const isAgentRoute = (pathname: string) => pathname === "/agents" || pathname.startsWith("/agents/");
 
 const isSameOrigin = (request: Request) => {
   const origin = request.headers.get("Origin");
@@ -66,6 +74,21 @@ export default {
       return json({ ok: true }, { headers: { "Set-Cookie": clearAdminSessionCookie() } });
     }
 
+    if (isEmailApi(url.pathname) || isAgentRoute(url.pathname)) {
+      if (!(await hasAdminSession(request, env))) return json({ error: "Admin authentication is required." }, { status: 401 });
+      if (request.method !== "GET" && request.method !== "HEAD" && !isSameOrigin(request)) {
+        return json({ error: "Request origin was rejected." }, { status: 403 });
+      }
+
+      if (isEmailApi(url.pathname)) {
+        const response = await handleEmailApi(request, env);
+        if (response) return response;
+      }
+
+      const response = await routeAgentRequest(request, env);
+      if (response) return withNoStore(response);
+    }
+
     if (
       requiresAdminSession(url.pathname) &&
       url.pathname !== "/admin/login" &&
@@ -77,4 +100,9 @@ export default {
     const response = await handler.fetch(request);
     return requiresAdminSession(url.pathname) ? withNoStore(response) : response;
   },
-} satisfies ExportedHandler<Env>;
+  async email(message, env, ctx) {
+    await handleIncomingEmail(message, env, ctx);
+  },
+} satisfies ExportedHandler<Env> & { email: EmailExportedHandler<Env> };
+
+export { EmailAgent };

@@ -4,6 +4,45 @@
   "main": "src/server.ts",
   "compatibility_date": "2026-05-01",
   "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "EMAIL_DOMAIN": "nyptech.club",
+    "EMAIL_AI_MODEL": "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "nyptech",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "EMAIL_OBJECTS",
+      "bucket_name": "nyptech"
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  },
+  "send_email": [
+    {
+      "name": "EMAIL"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "EMAIL_AGENT",
+        "class_name": "EmailAgent"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["EmailAgent"]
+    }
+  ],
   "logpush": true,
   "observability": {
     "logs": {
