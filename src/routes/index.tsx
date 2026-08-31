@@ -21,6 +21,7 @@ export const Route = createFileRoute("/")({ component: Home });
 // ── Content ──────────────────────────────────────────────────────────────────
 
 const CONTACT_URL = "mailto:nyptechnopreneurs@gmail.com";
+const JOIN_URL = "https://nyptech.fillout.com/t/gFof1XTvNrus";
 
 const STATS = [
   { value: "14+", label: "startups launched" },
@@ -478,8 +479,8 @@ function Hero() {
         </motion.p>
 
         <motion.div {...rise(0.2)} className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <CtaLink href={CONTACT_URL} external variant="primary" arrow>
-            Get in touch
+          <CtaLink href={JOIN_URL} external variant="primary" arrow>
+            Register your interest
           </CtaLink>
           <CtaLink href="#startups" variant="secondary">
             See startups
