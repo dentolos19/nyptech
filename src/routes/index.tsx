@@ -133,7 +133,7 @@ const STARTUP_LOGOS = [
   { name: "Initiate", src: "/assets/startups/initiate.svg", url: "https://initiate.global/" },
   { name: "Keypiece AI", src: "/assets/startups/keypiece.svg", url: "https://www.keypiece.ai/" },
   { name: "NetVet", src: "/assets/startups/netvet.svg", url: "https://netvet.io/" },
-  { name: "OneLLM", src: "/assets/startups/onellm.png", url: "https://onellm.ai/" },
+  { name: "OneLLM", src: "/assets/startups/onellm.png", url: "https://onellm.dev/" },
   { name: "ProcoLink", src: "/assets/startups/procolink.png", url: "https://proco.link/" },
   { name: "Virage", src: "/assets/startups/virage.png", url: "https://virage.app/" },
   { name: "Proton", src: "/assets/startups/proton.svg", url: "https://proton.me/" },
@@ -575,8 +575,8 @@ function ProgramOverview() {
           </h2>
           <div data-gsap-item className="text-muted-foreground mt-7 space-y-5 text-[15px] leading-relaxed">
             <p>
-              NYP Technopreneurship is where students explore the startup world by building, testing, and sharing
-              ideas with people who are doing the same.
+              NYP Technopreneurship is where students explore the startup world by building, testing, and sharing ideas
+              with people who are doing the same.
             </p>
             <p>
               Workshops, founder conversations, community events, and funding guidance make it easier to move from a
@@ -1067,9 +1067,7 @@ function Footer() {
           <div className="max-w-sm">
             <div className="flex items-center gap-2.5">
               <img src="/icon2.jpeg" alt="" className="size-8 rounded-full" />
-              <span className="text-foreground text-[15px] font-semibold tracking-tight">
-                NYP Technopreneurship
-              </span>
+              <span className="text-foreground text-[15px] font-semibold tracking-tight">NYP Technopreneurship</span>
             </div>
             <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
               Nanyang Polytechnic's student community for builders turning ideas into ventures.
