@@ -3,27 +3,27 @@
 .idea/
 *.iml
 
-# Environment files
+# Build files
 .tanstack/
 .wrangler/
 node_modules/
 dist/
 build/
 out/
-*.d.ts
+coverage/
 *.tsbuildinfo
+*.d.ts
 
 # User files
 .env*
 !.env*.template
 
-# Project files
+# Project-specific rules
 /src/routeTree.gen.ts
-
-# Local tooling (machine-specific dev runner)
 dev.ps1
 
 # Miscellaneous files
+.tmp/
 .DS_Store
 Desktop.ini
 Thumbs.db
