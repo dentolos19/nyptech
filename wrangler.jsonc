@@ -2,19 +2,20 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "nyptech",
   "main": "src/server.ts",
-  "compatibility_date": "2026-05-01",
-  "compatibility_flags": ["nodejs_compat"],
-  "logpush": true,
+  "compatibility_date": "2026-10-01",
   "observability": {
     "logs": {
-      "enabled": true
+      "enabled": true,
     },
     "traces": {
-      "enabled": true
-    }
+      "enabled": true,
+    },
+    "issues": {
+      "enabled": true,
+    },
   },
   "route": {
     "pattern": "nyptech.club",
-    "custom_domain": true
-  }
+    "custom_domain": true,
+  },
 }
