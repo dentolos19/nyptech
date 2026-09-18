@@ -1,15 +1,15 @@
-name: Web Development
+name: Cloudflare Deployment
 on:
   push:
     branches:
       - main
   workflow_dispatch:
 concurrency:
-  group: ${{ github.workflow }}
+  group: ${{ github.workflow }}-${{ github.ref_name }}
   cancel-in-progress: true
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy Worker
     environment: Production
     runs-on: ubuntu-latest
     env:
@@ -27,11 +27,8 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: Install Dependencies
-        run: bun install --frozen-lockfile
+      - name: Setup Just
+        uses: extractions/setup-just@v4
 
-      - name: Build Project
-        run: bun run build
-
-      - name: Deploy to Cloudflare
-        run: bun run deploy
+      - name: Deploy Worker
+        run: just deploy
