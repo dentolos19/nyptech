@@ -1,6 +1,4 @@
-import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import AppProvider from "#/components/app-provider";
 import ErrorOccurred from "#/components/error-occurred";
@@ -41,17 +39,6 @@ export const Route = createRootRoute({
       </head>
       <body className={"antialiased"}>
         <AppProvider>{children}</AppProvider>
-        <TanStackDevtools
-          config={{
-            position: "bottom-right",
-          }}
-          plugins={[
-            {
-              name: "Tanstack Router",
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-          ]}
-        />
         <Scripts />
       </body>
     </html>
@@ -63,7 +50,7 @@ export const Route = createRootRoute({
   ),
   errorComponent: ({ error }) => (
     <main className={"h-dvh"}>
-      <ErrorOccurred error={error} />
+      <ErrorOccurred error={error instanceof Error ? error : new Error(String(error))} />
     </main>
   ),
   notFoundComponent: () => (
