@@ -16,12 +16,12 @@ The site is a single landing page in [`src/routes/index.tsx`](src/routes/index.t
 - **Navigation**: Anchor links to the program, startups, and FAQ sections, plus a contact button.
 - **Hero**: The headline and calls to action to register interest through an external form or to see the startups.
 - **Stats**: Headline figures for startups, mentors, funding support, and events.
-- **Program overview**: What the club offers, including workshops, founder conversations, community events, and funding guidance.
-- **Who should apply**: The personas the club serves and what applicants do not need.
-- **Success stories**: Short stories from community startups.
-- **Startups showcase**: Community startups with descriptions and links, pinned and animated on wide screens and stacked on small screens or with reduced motion.
+- **Program Overview**: What the club offers, including workshops, founder conversations, community events, and funding guidance.
+- **Who Should Apply**: The personas the club serves and what applicants do not need.
+- **Success Stories**: Short stories from community startups.
+- **Startups Showcase**: Community startups with descriptions and links, pinned and animated on wide screens and stacked on small screens or with reduced motion.
 - **FAQ**: Common questions in an accordion.
-- **Final call to action and footer**: Contact by email, links to Instagram, LinkedIn, Discord, and Telegram.
+- **Final Call to Action and Footer**: Contact by email, links to Instagram, LinkedIn, Discord, and Telegram.
 
 ## Scope
 

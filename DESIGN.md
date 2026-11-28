@@ -16,7 +16,7 @@
 ## Tokens
 
 - **Brand**: An orange palette with `brand` (`#fd5f00`), `brand-strong` (`#cf4e00`), `brand-soft` (`#fff0e7`), `brand-foreground` (white), and `ink`.
-- **Semantic colors**: The shadcn set (`background`, `foreground`, `primary`, `secondary`, `muted`, `accent`, `destructive`, `border`, `input`, `ring`, `card`, `popover`, and `sidebar`) on a warm palette with dark brown foreground text (`#32180b`). `primary` and `ring` match the brand orange.
+- **Semantic Colors**: The shadcn set (`background`, `foreground`, `primary`, `secondary`, `muted`, `accent`, `destructive`, `border`, `input`, `ring`, `card`, `popover`, and `sidebar`) on a warm palette with dark brown foreground text (`#32180b`). `primary` and `ring` match the brand orange.
 - **Charts**: `chart-1` to `chart-5`, from brand orange to pale peach.
 - **Radius**: `--radius` is `0.625rem`, with `sm` to `4xl` scaled from it.
 - **Fonts**: Geist Variable for sans and headings, and Fraunces Variable for serif display text, tuned with soft optical settings.

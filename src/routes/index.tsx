@@ -219,7 +219,7 @@ function CtaLink({
 
 function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <span className="text-brand inline-flex items-center gap-2 text-xs font-semibold tracking-[0.18em] uppercase">
+    <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.18em] text-brand uppercase">
       <Sparkle className="size-3.5" />
       {children}
     </span>
@@ -359,7 +359,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
         onMouseLeave={() => setActive(false)}
         onFocus={() => setActive(true)}
         onBlur={() => setActive(false)}
-        className="text-muted-foreground hover:text-foreground focus-visible:text-foreground relative text-sm font-medium transition-colors focus-visible:outline-none"
+        className="relative text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:outline-none"
       >
         {label}
       </a>
@@ -368,7 +368,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
         preserveAspectRatio="none"
         fill="none"
         aria-hidden="true"
-        className="text-brand pointer-events-none absolute -top-2 -right-3.5 -bottom-2 -left-3.5"
+        className="pointer-events-none absolute -top-2 -right-3.5 -bottom-2 -left-3.5 text-brand"
       >
         <motion.path
           d="M128 7c-40-6-92-2-112 18-18 18-6 41 30 51 39 11 110 9 150-9 30-14 26-40-8-54-20-8-46-11-70-11"
@@ -410,7 +410,7 @@ function Navbar() {
       >
         <a href="#top" className="flex items-center gap-2.5">
           <img src="/icon2.jpeg" alt="" className="size-8 rounded-full" />
-          <span className="text-foreground text-[15px] font-semibold tracking-tight">NYP Technopreneurship</span>
+          <span className="text-[15px] font-semibold tracking-tight text-foreground">NYP Technopreneurship</span>
         </a>
 
         <div className="hidden items-center gap-7 md:flex">
@@ -449,7 +449,7 @@ function Hero() {
       />
       <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-36 bg-gradient-to-b from-transparent via-white/75 to-white" />
       <div
-        className="text-brand pointer-events-none absolute inset-0 opacity-[0.06]"
+        className="pointer-events-none absolute inset-0 text-brand opacity-[0.06]"
         style={{
           backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
           backgroundSize: "26px 26px",
@@ -459,12 +459,12 @@ function Hero() {
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <motion.h1
           {...rise(0)}
-          className="text-foreground text-[2.6rem] leading-[1.05] font-bold tracking-tight sm:text-6xl md:text-7xl"
+          className="text-[2.6rem] leading-[1.05] font-bold tracking-tight text-foreground sm:text-6xl md:text-7xl"
         >
           Build the company
           <br />
           you keep{" "}
-          <span className="text-brand relative inline-block whitespace-nowrap">
+          <span className="relative inline-block whitespace-nowrap text-brand">
             talking about.
             <SketchUnderline className="absolute -bottom-2 left-0 h-3 w-full" />
           </span>
@@ -472,7 +472,7 @@ function Hero() {
 
         <motion.p
           {...rise(0.1)}
-          className="text-muted-foreground mx-auto mt-8 max-w-2xl text-lg leading-relaxed md:text-xl"
+          className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl"
         >
           NYP's student incubator for builders turning ideas into ventures through mentorship, resources, funding
           guidance, and a startup community.
@@ -487,7 +487,7 @@ function Hero() {
           </CtaLink>
         </motion.div>
 
-        <motion.p {...rise(0.3)} className="text-muted-foreground mt-5 text-[13px]">
+        <motion.p {...rise(0.3)} className="mt-5 text-[13px] text-muted-foreground">
           Student-led &middot; multidisciplinary &middot; built for doers
         </motion.p>
       </div>
@@ -499,12 +499,12 @@ function Hero() {
 
 function TrustBand() {
   return (
-    <section className="border-border to-muted/25 border-b bg-gradient-to-b from-white via-white px-6 py-12">
+    <section className="border-b border-border bg-gradient-to-b from-white via-white to-muted/25 px-6 py-12">
       <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 md:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 0.08} className="text-center">
-            <p className="text-foreground text-3xl font-bold tracking-tight md:text-4xl">{s.value}</p>
-            <p className="text-muted-foreground mt-1 text-sm">{s.label}</p>
+            <p className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">{s.value}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
           </Reveal>
         ))}
       </div>
@@ -518,9 +518,9 @@ function GrowthSketch() {
   const reduced = useReducedMotion();
   return (
     <div className="relative">
-      <div className="border-border bg-brand-soft/60 relative overflow-hidden rounded-2xl border p-8">
+      <div className="relative overflow-hidden rounded-2xl border border-border bg-brand-soft/60 p-8">
         <SketchFrame className="pointer-events-none absolute inset-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)]" />
-        <svg viewBox="0 0 340 260" className="text-brand relative w-full" fill="none" aria-hidden="true">
+        <svg viewBox="0 0 340 260" className="relative w-full text-brand" fill="none" aria-hidden="true">
           {/* axes */}
           <path d="M40 20v200h270" stroke="currentColor" strokeOpacity="0.35" strokeWidth="2.5" strokeLinecap="round" />
           {/* rising hand-drawn curve */}
@@ -543,12 +543,12 @@ function GrowthSketch() {
             strokeLinejoin="round"
           />
         </svg>
-        <IconRocket className="text-brand absolute top-12 right-16 size-8" />
-        <Sparkle className="text-brand/50 absolute bottom-16 left-20 size-4" />
-        <div className="text-muted-foreground absolute bottom-12 left-20 max-w-28 font-serif text-sm leading-none">
+        <IconRocket className="absolute top-12 right-16 size-8 text-brand" />
+        <Sparkle className="absolute bottom-16 left-20 size-4 text-brand/50" />
+        <div className="absolute bottom-12 left-20 max-w-28 font-serif text-sm leading-none text-muted-foreground">
           you are here
         </div>
-        <div className="text-brand absolute top-18 right-24 max-w-28 text-right font-serif text-sm leading-none font-medium">
+        <div className="absolute top-18 right-24 max-w-28 text-right font-serif text-sm leading-none font-medium text-brand">
           Demo Day
         </div>
       </div>
@@ -564,7 +564,7 @@ function ProgramOverview() {
           <Eyebrow>The program</Eyebrow>
           <h2
             data-gsap-heading
-            className="text-foreground mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight md:text-5xl"
+            className="mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight text-foreground md:text-5xl"
           >
             So, what is it,
             <br />
@@ -573,7 +573,7 @@ function ProgramOverview() {
               <SketchCircle className="absolute -inset-x-4 -inset-y-3 h-[calc(100%+1.5rem)] w-[calc(100%+2rem)]" />
             </span>
           </h2>
-          <div data-gsap-item className="text-muted-foreground mt-7 space-y-5 text-[15px] leading-relaxed">
+          <div data-gsap-item className="mt-7 space-y-5 text-[15px] leading-relaxed text-muted-foreground">
             <p>
               NYP Technopreneurship is where students explore the startup world by building, testing, and sharing ideas
               with people who are doing the same.
@@ -582,7 +582,7 @@ function ProgramOverview() {
               Workshops, founder conversations, community events, and funding guidance make it easier to move from a
               first problem to a real prototype.
             </p>
-            <p className="text-foreground font-medium">
+            <p className="font-medium text-foreground">
               Most of all, it is a community of students serious about building useful things.
             </p>
           </div>
@@ -610,11 +610,11 @@ function WhoShouldApply() {
         <Eyebrow>Who it's for</Eyebrow>
         <h2
           data-gsap-heading
-          className="text-foreground mt-5 text-4xl leading-tight font-bold tracking-tight md:text-5xl"
+          className="mt-5 text-4xl leading-tight font-bold tracking-tight text-foreground md:text-5xl"
         >
           You don't have to be a <span className="font-serif italic">“startup person.”</span>
         </h2>
-        <p className="text-muted-foreground mt-5 text-lg leading-relaxed">
+        <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
           You just need an idea you can't stop thinking about — and the will to build it. The rest, we'll figure out
           together.
         </p>
@@ -623,34 +623,34 @@ function WhoShouldApply() {
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {PERSONAS.map((p, i) => (
           <Reveal key={p.tag} delay={(i % 4) * 0.07}>
-            <div data-gsap-item data-gsap-tilt className="border-border h-full rounded-2xl border bg-white p-6">
-              <span className="text-brand font-serif text-lg font-medium">{p.tag}</span>
-              <p className="text-muted-foreground mt-3 text-[15px] leading-relaxed">{p.body}</p>
+            <div data-gsap-item data-gsap-tilt className="h-full rounded-2xl border border-border bg-white p-6">
+              <span className="font-serif text-lg font-medium text-brand">{p.tag}</span>
+              <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{p.body}</p>
             </div>
           </Reveal>
         ))}
       </div>
 
       <Reveal delay={0.1}>
-        <div className="border-border bg-border mt-10 grid gap-px overflow-hidden rounded-2xl border sm:grid-cols-2">
+        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
           <div data-gsap-item className="bg-white p-8">
-            <p className="text-muted-foreground text-sm font-semibold tracking-wide uppercase">You don't need</p>
+            <p className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">You don't need</p>
             <ul className="mt-5 space-y-3.5">
               {dont.map((item) => (
-                <li key={item} className="text-muted-foreground flex items-center gap-3 text-[15px]">
-                  <span className="bg-muted grid size-5 shrink-0 place-items-center rounded-full">
-                    <X className="text-muted-foreground size-3" />
+                <li key={item} className="flex items-center gap-3 text-[15px] text-muted-foreground">
+                  <span className="grid size-5 shrink-0 place-items-center rounded-full bg-muted">
+                    <X className="size-3 text-muted-foreground" />
                   </span>
-                  <span className="decoration-muted-foreground/40 line-through">{item}</span>
+                  <span className="line-through decoration-muted-foreground/40">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
           <div data-gsap-item className="bg-white p-8">
-            <p className="text-brand text-sm font-semibold tracking-wide uppercase">You just need</p>
+            <p className="text-sm font-semibold tracking-wide text-brand uppercase">You just need</p>
             <ul className="mt-5 space-y-3.5">
               {need.map((item) => (
-                <li key={item} className="text-foreground flex items-center gap-3 text-[15px] font-medium">
+                <li key={item} className="flex items-center gap-3 text-[15px] font-medium text-foreground">
                   <SketchCheck className="size-5 shrink-0" />
                   {item}
                 </li>
@@ -672,7 +672,7 @@ function SuccessStories() {
         <Eyebrow>Startup stories</Eyebrow>
         <h2
           data-gsap-heading
-          className="text-foreground mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight md:text-5xl"
+          className="mt-5 font-serif text-4xl leading-[1.1] font-medium tracking-tight text-foreground md:text-5xl"
         >
           From student problems to ventures with real-world impact.
         </h2>
@@ -684,19 +684,19 @@ function SuccessStories() {
             <article
               data-gsap-item
               data-gsap-tilt
-              className="border-border relative flex h-full flex-col rounded-2xl border bg-white p-7"
+              className="relative flex h-full flex-col rounded-2xl border border-border bg-white p-7"
             >
-              <p className="text-brand text-xs font-semibold tracking-[0.16em] uppercase">Startup story</p>
-              <h3 className="text-foreground mt-4 font-serif text-2xl leading-tight font-medium">{s.title}</h3>
-              <p className="text-muted-foreground mt-4 flex-1 text-[15px] leading-relaxed">{s.story}</p>
-              <div className="border-border mt-6 border-t pt-5">
+              <p className="text-xs font-semibold tracking-[0.16em] text-brand uppercase">Startup story</p>
+              <h3 className="mt-4 font-serif text-2xl leading-tight font-medium text-foreground">{s.title}</h3>
+              <p className="mt-4 flex-1 text-[15px] leading-relaxed text-muted-foreground">{s.story}</p>
+              <div className="mt-6 border-t border-border pt-5">
                 <div className="flex items-center gap-3">
-                  <div className="border-border grid size-10 shrink-0 place-items-center overflow-hidden rounded-xl border bg-white">
+                  <div className="grid size-10 shrink-0 place-items-center overflow-hidden rounded-xl border border-border bg-white">
                     <img src={s.icon} alt={`${s.startup} logo`} className="h-full w-full object-cover" />
                   </div>
                   <div>
-                    <p className="text-foreground text-sm font-semibold">{s.startup}</p>
-                    <p className="text-muted-foreground text-xs">{s.outcome}</p>
+                    <p className="text-sm font-semibold text-foreground">{s.startup}</p>
+                    <p className="text-xs text-muted-foreground">{s.outcome}</p>
                   </div>
                 </div>
               </div>
@@ -714,7 +714,7 @@ function StartupLogoGrid({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "border-border/70 flex aspect-square w-full items-center justify-center rounded-[2rem] border p-6 shadow-[0_24px_70px_rgba(15,23,42,0.10)]",
+        "flex aspect-square w-full items-center justify-center rounded-[2rem] border border-border/70 p-6 shadow-[0_24px_70px_rgba(15,23,42,0.10)]",
         className,
       )}
     >
@@ -726,7 +726,7 @@ function StartupLogoGrid({ className }: { className?: string }) {
             target="_blank"
             rel="noreferrer"
             aria-label={`Visit ${logo.name}`}
-            className="focus-visible:outline-brand flex size-16 items-center justify-center overflow-hidden rounded-xl transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2"
+            className="flex size-16 items-center justify-center overflow-hidden rounded-xl transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           >
             <img src={logo.src} alt={logo.name} className="h-full w-full object-cover" />
           </a>
@@ -832,8 +832,8 @@ function PinnedStartups() {
                     onClick={() => jumpTo(i)}
                     aria-current={i === active ? "true" : undefined}
                     style={{ transformOrigin: "left center" }}
-                    className={`focus-visible:outline-brand block cursor-pointer font-sans text-4xl leading-none tracking-[-0.045em] transition-colors duration-500 focus-visible:outline-2 focus-visible:outline-offset-4 md:text-5xl lg:text-[3.6rem] ${
-                      i === active ? "text-foreground font-semibold" : "text-foreground/12 font-medium"
+                    className={`block cursor-pointer font-sans text-4xl leading-none tracking-[-0.045em] transition-colors duration-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand md:text-5xl lg:text-[3.6rem] ${
+                      i === active ? "font-semibold text-foreground" : "font-medium text-foreground/12"
                     }`}
                   >
                     <motion.span
@@ -850,7 +850,7 @@ function PinnedStartups() {
                           initial={{ scaleX: 0, opacity: 0 }}
                           animate={{ scaleX: 1, opacity: 1 }}
                           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                          className="text-brand absolute right-0 -bottom-1 left-0 h-3 origin-left"
+                          className="absolute right-0 -bottom-1 left-0 h-3 origin-left text-brand"
                         >
                           <SketchUnderline className="h-full w-full" />
                         </motion.span>
@@ -868,29 +868,29 @@ function PinnedStartups() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="border-border rounded-2xl border bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,0.08)]"
+              className="rounded-2xl border border-border bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,0.08)]"
             >
               {current.isMilestone ? (
                 <>
-                  <span className="text-brand text-xs font-semibold tracking-[0.16em] uppercase">
+                  <span className="text-xs font-semibold tracking-[0.16em] text-brand uppercase">
                     {current.category}
                   </span>
-                  <h3 className="text-foreground mt-3 font-serif text-4xl font-medium">{current.name}</h3>
-                  <p className="text-muted-foreground mt-4 max-w-xl leading-relaxed">{current.blurb}</p>
-                  <p className="text-brand mt-5 text-sm font-semibold">{current.metric}</p>
+                  <h3 className="mt-3 font-serif text-4xl font-medium text-foreground">{current.name}</h3>
+                  <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">{current.blurb}</p>
+                  <p className="mt-5 text-sm font-semibold text-brand">{current.metric}</p>
                   <StartupLogoGrid className="mt-7 aspect-auto min-h-72" />
                 </>
               ) : (
                 <>
-                  <div className="border-border flex size-24 items-center justify-center overflow-hidden rounded-2xl border bg-white">
+                  <div className="flex size-24 items-center justify-center overflow-hidden rounded-2xl border border-border bg-white">
                     <img src={current.image} alt={`${current.name} logo`} className="h-full w-full object-cover" />
                   </div>
-                  <span className="text-brand mt-6 block text-xs font-semibold tracking-[0.16em] uppercase">
+                  <span className="mt-6 block text-xs font-semibold tracking-[0.16em] text-brand uppercase">
                     {current.category}
                   </span>
-                  <h3 className="text-foreground mt-3 font-serif text-4xl font-medium">{current.name}</h3>
-                  <p className="text-muted-foreground mt-4 max-w-xl leading-relaxed">{current.blurb}</p>
-                  <p className="text-brand mt-5 text-sm font-semibold">{current.metric}</p>
+                  <h3 className="mt-3 font-serif text-4xl font-medium text-foreground">{current.name}</h3>
+                  <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">{current.blurb}</p>
+                  <p className="mt-5 text-sm font-semibold text-brand">{current.metric}</p>
                 </>
               )}
               {"url" in current && current.url && (
@@ -912,25 +912,25 @@ function StackedStartups() {
       {STARTUPS.map((s) => (
         <Reveal key={s.name}>
           {s.isMilestone ? (
-            <article className="border-border rounded-2xl border bg-white p-6 md:p-8">
-              <span className="border-brand/15 bg-brand-soft text-brand inline-flex rounded-full border px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+            <article className="rounded-2xl border border-border bg-white p-6 md:p-8">
+              <span className="inline-flex rounded-full border border-brand/15 bg-brand-soft px-3 py-1 text-xs font-semibold tracking-wide text-brand uppercase">
                 {s.category}
               </span>
-              <h3 className="text-foreground mt-4 font-serif text-3xl leading-tight font-medium">{s.name}</h3>
-              <p className="text-muted-foreground mt-3 max-w-2xl leading-relaxed">{s.blurb}</p>
-              <p className="text-brand mt-4 text-sm font-semibold">{s.metric}</p>
+              <h3 className="mt-4 font-serif text-3xl leading-tight font-medium text-foreground">{s.name}</h3>
+              <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">{s.blurb}</p>
+              <p className="mt-4 text-sm font-semibold text-brand">{s.metric}</p>
               <StartupLogoGrid className="mt-7 aspect-auto min-h-72" />
             </article>
           ) : (
-            <article className="border-border flex flex-col gap-5 rounded-2xl border bg-white p-6 sm:flex-row sm:items-start md:px-8 md:py-7">
-              <div className="border-border flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border bg-white">
+            <article className="flex flex-col gap-5 rounded-2xl border border-border bg-white p-6 sm:flex-row sm:items-start md:px-8 md:py-7">
+              <div className="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-border bg-white">
                 <img src={s.image} alt={`${s.name} logo`} className="h-full w-full object-cover" />
               </div>
               <div className="min-w-0 flex-1">
-                <span className="text-brand text-xs font-semibold tracking-[0.16em] uppercase">{s.category}</span>
-                <h3 className="text-foreground mt-2 font-serif text-3xl leading-tight font-medium">{s.name}</h3>
-                <p className="text-muted-foreground mt-3 max-w-2xl leading-relaxed">{s.blurb}</p>
-                <p className="text-brand mt-4 text-sm font-semibold">{s.metric}</p>
+                <span className="text-xs font-semibold tracking-[0.16em] text-brand uppercase">{s.category}</span>
+                <h3 className="mt-2 font-serif text-3xl leading-tight font-medium text-foreground">{s.name}</h3>
+                <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">{s.blurb}</p>
+                <p className="mt-4 text-sm font-semibold text-brand">{s.metric}</p>
               </div>
               {"url" in s && s.url && (
                 <CtaLink href={s.url} external variant="secondary" arrow className="shrink-0 sm:self-center">
@@ -975,11 +975,11 @@ function Faq() {
           <Eyebrow>Questions</Eyebrow>
           <h2
             data-gsap-heading
-            className="text-foreground mt-5 text-4xl leading-tight font-bold tracking-tight md:text-5xl"
+            className="mt-5 text-4xl leading-tight font-bold tracking-tight text-foreground md:text-5xl"
           >
             Good questions.
           </h2>
-          <p className="text-muted-foreground mt-5 text-[15px] leading-relaxed">
+          <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground">
             Still unsure about something? Reach out. We would rather you ask than leave an idea unexplored.
           </p>
         </Reveal>
@@ -1011,32 +1011,32 @@ function FinalCta() {
       <div
         data-gsap-item
         data-gsap-tilt
-        className="border-brand/15 bg-brand-soft/50 relative mx-auto max-w-6xl overflow-hidden rounded-3xl border px-6 py-20 text-center md:py-28"
+        className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-brand/15 bg-brand-soft/50 px-6 py-20 text-center md:py-28"
       >
         <div
-          className="text-brand pointer-events-none absolute inset-0 opacity-[0.06]"
+          className="pointer-events-none absolute inset-0 text-brand opacity-[0.06]"
           style={{
             backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
             backgroundSize: "26px 26px",
           }}
         />
-        <Sparkle className="text-brand/30 absolute top-12 left-[15%] size-6" />
-        <Sparkle className="text-brand/25 absolute right-[18%] bottom-16 size-5" />
+        <Sparkle className="absolute top-12 left-[15%] size-6 text-brand/30" />
+        <Sparkle className="absolute right-[18%] bottom-16 size-5 text-brand/25" />
 
         <Reveal className="relative mx-auto max-w-2xl">
           <h2
             data-gsap-heading
-            className="text-foreground font-serif text-5xl leading-[1.05] font-medium tracking-tight md:text-6xl"
+            className="font-serif text-5xl leading-[1.05] font-medium tracking-tight text-foreground md:text-6xl"
           >
             It's never too early
             <br />
             to{" "}
-            <span className="text-brand relative inline-block whitespace-nowrap">
+            <span className="relative inline-block whitespace-nowrap text-brand">
               start.
               <SketchUnderline className="absolute -bottom-2 left-0 h-3 w-full" />
             </span>
           </h2>
-          <p className="text-muted-foreground mx-auto mt-7 max-w-xl text-lg leading-relaxed">
+          <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground">
             The worst thing you can do with an idea is wait. Reach out to learn about upcoming activities and ways to
             get involved.
           </p>
@@ -1048,7 +1048,7 @@ function FinalCta() {
               Read the FAQ
             </CtaLink>
           </div>
-          <p className="text-muted-foreground mt-5 text-[13px]">
+          <p className="mt-5 text-[13px] text-muted-foreground">
             Workshops &middot; community &middot; founder support
           </p>
         </Reveal>
@@ -1061,34 +1061,34 @@ function FinalCta() {
 
 function Footer() {
   return (
-    <footer className="border-border border-t bg-white px-6 py-14">
+    <footer className="border-t border-border bg-white px-6 py-14">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
             <div className="flex items-center gap-2.5">
               <img src="/icon2.jpeg" alt="" className="size-8 rounded-full" />
-              <span className="text-foreground text-[15px] font-semibold tracking-tight">NYP Technopreneurship</span>
+              <span className="text-[15px] font-semibold tracking-tight text-foreground">NYP Technopreneurship</span>
             </div>
-            <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               Nanyang Polytechnic's student community for builders turning ideas into ventures.
             </p>
           </div>
 
           <div className="flex flex-col gap-6 sm:flex-row sm:gap-16">
             <nav className="flex flex-col gap-3">
-              <p className="text-muted-foreground text-xs font-semibold tracking-[0.16em] uppercase">Explore</p>
+              <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">Explore</p>
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {link.label}
                 </a>
               ))}
             </nav>
             <div className="flex flex-col gap-3">
-              <p className="text-muted-foreground text-xs font-semibold tracking-[0.16em] uppercase">Get started</p>
+              <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">Get started</p>
               <CtaLink href={CONTACT_URL} external variant="primary" arrow className="w-fit px-4 py-2 text-[13px]">
                 Get in touch
               </CtaLink>
@@ -1100,7 +1100,7 @@ function Footer() {
                     aria-label={s.name}
                     target="_blank"
                     rel="noreferrer"
-                    className="border-border hover:border-brand/40 hover:bg-brand-soft grid size-9 place-items-center rounded-full border transition-colors"
+                    className="grid size-9 place-items-center rounded-full border border-border transition-colors hover:border-brand/40 hover:bg-brand-soft"
                   >
                     <img src={s.icon} alt="" className="size-4 opacity-50" />
                   </a>
@@ -1110,7 +1110,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-border text-muted-foreground mt-12 flex flex-col gap-3 border-t pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; 2026 NYP Technopreneurship. All rights reserved.</p>
           <p>Built by students, for students.</p>
         </div>
@@ -1123,7 +1123,7 @@ function Footer() {
 
 function Home() {
   return (
-    <div className="text-foreground min-h-screen bg-white">
+    <div className="min-h-screen bg-white text-foreground">
       <Navbar />
       <main>
         <Hero />

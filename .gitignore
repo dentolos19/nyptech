@@ -1,10 +1,10 @@
 *.d.ts
-*.iml
 *.tsbuildinfo
 .DS_Store
 .cloudflare/
 .env*
 .idea/
+.playwright-cli/
 .tanstack/
 .tmp/
 .vs/
@@ -14,7 +14,6 @@ Desktop.ini
 Thumbs.db
 build/
 coverage/
-dev.ps1
 dist/
 node_modules/
 out/

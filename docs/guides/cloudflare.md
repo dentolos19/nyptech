@@ -4,17 +4,15 @@ The app uses the beta Cloudflare CLI and Vite integration with [`cloudflare.conf
 
 ## Commands
 
-| Command                              | Action                                                        |
-| ------------------------------------ | ------------------------------------------------------------- |
-| `just setup`                         | Install dependencies and generate types.                      |
-| `just start`                         | Start the local app on port 3000.                             |
-| `just check`                         | Apply Bun lint and formatting fixes and check types.          |
-| `just build`                         | Build the Worker and static assets.                           |
-| `just deploy`                        | Build and deploy the Worker.                                  |
-| `just environment=production deploy` | Use `.env.production` for the build and deployment commands.  |
+| Command                              | Action                                                       |
+| ------------------------------------ | ------------------------------------------------------------ |
+| `bun run types`                      | Regenerate the Worker types and the route tree.              |
+| `bun run deploy --dry-run`           | Build and package the Worker without uploading.              |
+| `just deploy`                        | Build and deploy the Worker.                                 |
+| `just environment=production deploy` | Use `.env.production` for the build and deployment commands. |
 
 ## Environment
 
-Just uses `.env` by default and `.env.<environment>` when `environment` is set. Values in the selected file override inherited variables. This selects configuration values, not a different Worker or domain. Cloudflare account and API credentials are supplied through the process environment or GitHub Actions.
+Just uses `.env` by default and `.env.<environment>` when `environment` is set. Values in the selected file override inherited variables. This selects configuration values, not a different Worker or domain. Cloudflare account and API credentials are supplied through the process environment or the workflow's top-level `env` in GitHub Actions.
 
-The current app has no Worker secret bindings, so deployment does not upload the selected environment file. The CLI and Vite integration are beta. See [Cloudflare's migration guide](https://developers.cloudflare.com/cf/wrangler/migrate/).
+The app reads no environment variables, so deployment does not upload a secrets file (see [0002](../decisions/0002-deploy-without-secrets-file.md)). The CLI and Vite integration are beta. See [Cloudflare's migration guide](https://developers.cloudflare.com/cf/wrangler/migrate/).
